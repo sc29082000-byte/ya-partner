@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vijay Preparation</title>
+<style>
+  :root{
+    --bg:#0f172a; --card:#1e293b; --accent:#38bdf8; --accent2:#facc15;
+    --text:#e2e8f0; --muted:#94a3b8; --pyq:#f87171; --rtp:#4ade80; --mtp:#60a5fa; --combo:#facc15;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:Segoe UI,Arial,sans-serif;line-height:1.5;}
+  #gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:99;}
+  #gate .box{background:var(--card);padding:2rem 2.5rem;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.5);text-align:center;max-width:340px;}
+  #gate h2{margin-top:0;color:var(--accent2);}
+  #gate input{width:100%;padding:.6rem;border-radius:6px;border:1px solid #475569;background:#0f172a;color:var(--text);font-size:1rem;margin:.8rem 0;}
+  #gate button{width:100%;padding:.6rem;border-radius:6px;border:none;background:var(--accent);color:#0f172a;font-weight:700;font-size:1rem;cursor:pointer;}
+  #gate button:hover{background:#0ea5e9;}
+  #gate .err{color:var(--pyq);font-size:.85rem;min-height:1.2em;}
+  #app{display:none;max-width:900px;margin:0 auto;padding:1.2rem 1rem 4rem;}
+  header{text-align:center;margin-bottom:1.5rem;}
+  header h1{margin:.2rem 0;color:var(--accent2);font-size:1.8rem;}
+  header p{color:var(--muted);margin:.2rem 0;}
+  .legend{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin:1rem 0;}
+  .badge{padding:.2rem .6rem;border-radius:20px;font-size:.75rem;font-weight:700;}
+  .b-pyq{background:var(--pyq);color:#1e1e1e;}
+  .b-rtp{background:var(--rtp);color:#1e1e1e;}
+  .b-mtp{background:var(--mtp);color:#1e1e1e;}
+  .b-combo{background:var(--combo);color:#1e1e1e;}
+  .qcard{background:var(--card);border-radius:10px;padding:1.1rem 1.2rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+  .qcard .meta{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:.6rem;}
+  .qcard .session{font-weight:700;color:var(--accent);}
+  .qcard .qno{color:var(--muted);font-size:.85rem;}
+  .combo-note{background:#3f3213;border-left:4px solid var(--combo);color:#fde68a;padding:.5rem .8rem;border-radius:6px;font-size:.88rem;margin:.5rem 0;}
+  .qtext{margin-top:.4rem;}
+  .qtext table, .ans table{border-collapse:collapse;width:100%;margin:.5rem 0;font-size:.92rem;}
+  .qtext td, .ans td{border:1px solid #334155;padding:.3rem .5rem;}
+  details{margin-top:.6rem;}
+  summary{cursor:pointer;color:var(--accent);font-weight:600;padding:.3rem 0;}
+  .ans{margin-top:.5rem;padding-top:.5rem;border-top:1px dashed #334155;color:#cbd5e1;}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:2rem;}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <h2>🔒 Vijay Preparation</h2>
+    <p style="color:var(--muted);font-size:.9rem;">Enter password to continue</p>
+    <input type="password" id="pw" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button onclick="checkPw()">Unlock</button>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<div id="app">
+<header>
+  <h1>📘 Vijay Preparation</h1>
+  <p>AS 2 — Valuation of Inventories</p>
+  <p>CA Inter · Advanced Accounting · PYQ + RTP + MTP (May 2024 → Sep 2026)</p>
+  <div class="legend">
+    <span class="badge b-pyq">PYQ</span>
+    <span class="badge b-rtp">RTP</span>
+    <span class="badge b-mtp">MTP</span>
+    <span class="badge b-combo">Combined with another AS</span>
+  </div>
+</header>
+<div id="questions"></div>
+<footer>12 questions · Study Material (SM) questions excluded as requested · Prepared for personal revision</footer>
+</div>
+
+<script>
+function checkPw(){
+  var v=document.getElementById('pw').value;
+  if(v==='Vijay798'){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').style.display='block';
+    try{sessionStorage.setItem('vijay_unlocked','1');}catch(e){}
+  } else {
+    document.getElementById('err').textContent='Incorrect password';
+  }
+}
+try{
+  if(sessionStorage.getItem('vijay_unlocked')==='1'){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').style.display='block';
+  }
+}catch(e){}
+
+var DATA = [
+{"session":"RTP Sep 2026","type":"RTP","qno":"Q8","marks":0,"combo":null,
+ "q":"Sun Ltd. has fabricated special equipment (solar power panel) during 2024-2025 as per drawing and design supplied by the customer. However, due to a liquidity crunch, the customer has requested the company for postponement in delivery schedule and requested the company to withhold the delivery of finished goods products and discontinue the production of balance items.<br><br>As a result, on 31.3.2026: WIP (solar power panel) Rs. 85 lakh; Finished products Rs. 55 lakh; Sundry Debtor Rs. 65 lakh.<br><br>Petition for winding up against the customer has been filed during 2025-26. Comment with explanation on provision to be made of Rs. 205 lakh included in Sundry Debtors, Finished goods and WIP as per AS 2.",
+ "a":"Solar power panels held in stock are 'inventory' under AS 2 and must be valued at lower of Cost or NRV. In the absence of NRV data, assuming cost is lower, inventory (WIP Rs. 85 lakh + Finished goods Rs. 55 lakh) = <b>Rs. 140 lakh</b> valued as per AS 2. (If no buyer exists, NRV is Nil and the full value is provided for.)<br>As the customer has filed for winding up, recovery of the Sundry Debtor balance is doubtful — a provision for doubtful debts of <b>Rs. 65 lakh</b> should be made."},
+
+{"session":"MTP-01 May 2026","type":"MTP","qno":"Q1(c)","marks":4,"combo":null,
+ "q":"(i) Sonu, a toy retailer: purchases Rs. 1,47,000, sales Rs. 1,54,000, average gross margin 10% on cost, opening stock Rs. 20,000. Find closing stock value.<br>(ii) On 21 March 2026, Mohan purchased 250 chairs @ Rs. 300 each; selling price Rs. 400 each; due to a manufacturing defect NRV is 70% of normal selling price. No chairs sold. Find closing stock value.",
+ "a":"(i) Sale value of unsold stock = (20,000+1,47,000)×1.10 − 1,54,000 = Rs. 29,700; less gross margin (29,700/1.10×0.10) = Rs. 2,700 → <b>Cost of closing inventory = Rs. 27,000</b>.<br>(ii) Cost = 250×300 = Rs. 75,000; NRV = 250×(400×70%)=Rs. 70,000 → <b>Value = lower of the two = Rs. 70,000</b>."},
+
+{"session":"MTP-02 Jan 2026","type":"MTP","qno":"Q6(a)","marks":4,
+ "combo":"AS 9 — Revenue Recognition",
+ "q":"<b>Main part (AS 9):</b> Indicate whether revenue can be recognized and when, for: (i) delivery delayed at buyer's request but buyer takes title & accepts billing; (ii) instalment sales; (iii) trade discounts & volume rebates; (iv) insurance agency commission; (v) advertising commission.<br><b>OR (AS 2):</b> \"In determining the cost of inventories, it is appropriate to exclude certain costs and recognise them as expenses in the period incurred.\" Provide examples of such costs as per AS 2 (Revised).",
+ "a":"<b>AS 9 part:</b> (i) Recognize revenue once goods are identified & ready for delivery, despite delay. (ii) Recognize sale-price revenue (excl. interest) at date of sale; interest recognized proportionately over unpaid balance. (iii) Trade discounts/rebates reduce cost, not revenue — deduct in determining revenue. (iv) Recognize on effective commencement/renewal date of policy. (v) Recognize when advertisement appears before the public (media commission) or on project completion (production commission).<br><br><b>AS 2 (OR) part — costs excluded from inventory cost, expensed instead:</b> (a) Abnormal wastage of materials, labour, or other production costs; (b) Storage costs (unless necessary before a further production stage); (c) Administrative overheads not contributing to bringing inventories to present location/condition; (d) Selling and distribution costs."},
+
+{"session":"MTP-01 Jan 2026","type":"MTP","qno":"Q2(a)","marks":7,"combo":null,
+ "q":"Happy Limited manufactures Polyester (P) and Nylon (N); by-product Fiber (F) also emerges. Raw material for 30,000 units Rs. 3,50,000; Wages Rs. 1,60,000; Fixed OH Rs. 1,20,000; Variable OH Rs. 60,000. Output: P 12,500, N 10,000, F 3,200 units. Closing stock: P 1,600, N 400 units. Market price: P Rs.100, N Rs.60/unit; F sold @ Rs.40/unit with Rs.8,000 profit after Rs.10,000 processing + Rs.9,000 packing expenses. Rs.5,000 realized from scrap. Compute closing inventory value of P and N.",
+ "a":"NRV of by-product F = 1,28,000 − 10,000 − 9,000 = Rs. 1,09,000. Joint cost = 6,90,000 − 1,09,000 − 5,000 (scrap) = Rs. 5,76,000, split 12,50,000:6,00,000 (sales value) between P and N → Rs. 3,89,189 and Rs. 1,86,811 → cost/unit Rs. 31.14 (P) and Rs. 18.68 (N).<br><b>Closing inventory: Polyester (1,600 units) = Rs. 49,824; Nylon (400 units) = Rs. 7,472.</b>"},
+
+{"session":"RTP Jan 2026","type":"RTP","qno":"Q3","marks":0,"combo":null,
+ "q":"A private limited company manufacturing fancy terry towels valued its closing finished-goods inventory at realisable value, inclusive of profit and export cash incentives. Firm export contracts existed and goods were packed for export, but ownership had not transferred to foreign buyers. Comment on the valuation.",
+ "a":"AS 2 requires inventories be valued at lower of cost and NRV. AS 9's NRV exception applies only to specific industries like agricultural crops/mineral ores — terry towels don't qualify. So valuation at realisable value (incl. profit) is incorrect; it should be lower of cost and NRV. Export incentives are recognized only in the year the export sale actually takes place — including them prematurely is also incorrect. <b>The company's policy is not correct.</b>"},
+
+{"session":"PYQ Sep 2025","type":"PYQ","qno":"Q1(b)","marks":5,"combo":null,
+ "q":"SR Limited manufactures Finished goods 'MP' from Raw material 'RP'. Opening: MP 4,000u/Rs.1,20,000, RP 4,400u/Rs.52,800. Purchases RP 40,000u/Rs.4,80,000. Labour Rs.3,23,200; Fixed OH Rs.3,15,000. Sales 40,200u/Rs.11,20,000. Closing: MP 4,200u, RP 4,000u. Expected production 45,000 units MP. Due to demand fall, MP selling price Rs.22/unit; RP replacement cost Rs.11.50/unit. Calculate closing stock value of MP and RP.",
+ "a":"Cost of production per unit of MP = Material Rs.12 + Labour Rs.8 + Fixed OH Rs.7 (3,15,000×40,400/45,000) = <b>Rs. 27/unit</b>. NRV (selling price) = Rs. 22, which is lower than cost → MP valued at Rs. 22. Since MP's NRV < cost, RP (raw material) is valued at replacement cost Rs. 11.50.<br><b>Closing stock: MP = 4,200×22 = Rs. 92,400; RP = 4,000×11.50 = Rs. 46,000.</b>"},
+
+{"session":"RTP Sep 2025","type":"RTP","qno":"Q6","marks":0,"combo":null,
+ "q":"Zing Ltd. FY2024-25: Raw material closing 700 units, cost Rs.35/unit, replacement cost Rs.20/unit. FP1: production 3,000u, closing 500u; FP2: production 1,600u, closing 300u. Material consumed Rs.3,20,000; Direct labour Rs.1,60,000; Direct expenses Rs.78,000. Fixed OH Rs.95,000 (incl. Rs.15,000 godown rent for finished goods). By-product BY: 1,000 units sold @Rs.12/unit, expense Rs.2,500; scrap realized Rs.4,800. Market price FP1 Rs.160, FP2 Rs.100. Calculate closing stock as per AS 2.",
+ "a":"NRV of by-product BY = 12,000 − 2,500 = Rs. 9,500. Joint conversion cost = Rs.6,38,000 (excl. godown rent) − 9,500 − 4,800 (scrap) = Rs. 6,23,700, allocated 3:1 (sales value) → FP1 Rs.4,67,775, FP2 Rs.1,55,925 → cost/unit Rs.155.93 (FP1), Rs.97.45 (FP2).<br>Closing FG: FP1 = Rs.77,965; FP2 = Rs.29,235. Raw material (both FPs sold above cost, valued at cost Rs.35) = Rs.24,500.<br><b>Total closing stock = Rs. 1,31,700.</b>"},
+
+{"session":"RTP May 2025","type":"RTP","qno":"Q5","marks":0,"combo":null,
+ "q":"LMN Ltd. FY2024: Raw Material A closing 700 units — cost price incl. GST Rs.280, ITC available Rs.25, freight inward Rs.35, handling Rs.20, replacement cost Rs.200. Finished Goods B closing 1,800 units — material consumed Rs.280, direct labour Rs.80, direct overhead Rs.40; fixed overhead Rs.3,60,000 on normal capacity 36,000 units, actual production 30,000 units. Compute closing stock when (i) NRV of B is Rs.500/unit, (ii) NRV of B is Rs.380/unit.",
+ "a":"Cost/unit: Raw Material A = Rs.310 (280−25+35+20); Finished Goods B = Rs.410 (280+80+40+10 fixed OH allocated on normal capacity).<br>(i) NRV Rs.500 > cost → both at cost: RM Rs.2,17,000 + FG Rs.7,38,000 = <b>Total Rs. 9,55,000</b>.<br>(ii) NRV Rs.380 < cost Rs.410 → RM at replacement cost, FG at NRV: RM Rs.1,40,000 + FG Rs.6,84,000 = <b>Total Rs. 8,24,000</b>."},
+
+{"session":"MTP-02 May 2025","type":"MTP","qno":"Q6(c)","marks":5,"combo":null,
+ "q":"Wooden Plywood Limited has normal wastage of 5%. During 2024-25, used 16,000 MT raw material @ Rs.190/MT; at year-end, 950 MT wastage in stock. (1) Calculate abnormal loss. (2) Explain treatment of normal and abnormal loss as per AS 2.",
+ "a":"Material used = 16,000×190 = Rs.30,40,000. Normal loss (5%) = 800 MT (included in cost of inventories). Net quantity = 15,200 MT. Abnormal loss quantity = 950−800 = 150 MT → <b>Abnormal loss = Rs. 30,000</b> [150 × Rs.200 (30,40,000/15,200)] — charged to P&L. Normal loss cost stays absorbed in inventory valuation; abnormal loss is excluded from inventory cost and expensed in the P&L per AS 2."},
+
+{"session":"PYQ Sep 2024","type":"PYQ","qno":"Q6(a)","marks":4,
+ "combo":"AS 13 — Accounting for Investments",
+ "q":"<b>Main part (AS 13):</b> On 01.04.2023, Mr. Day holds 25,000 shares of Squares Ltd. at book value Rs.25/share (FV Rs.10). [Investment A/c involving bonus shares, rights issue, part sale of rights and part subscription.]<br><b>OR (AS 2):</b> \"In determining the cost of inventories, it is appropriate to exclude certain costs and recognise them as expenses in the period in which they are incurred.\" Provide examples of such costs as per AS 2 (Revised).",
+ "a":"<b>AS 13 part (primary answer):</b> Investment A/c worked with bonus shares 5,000, rights shares 45,000 — 1/4th sold for Rs.56,250, 3/4th subscribed for Rs.6,75,000; closing balance 63,750 shares valued at Rs.13,00,000.<br><br><b>AS 2 (OR) part:</b> Costs excluded from inventory cost and expensed: (a) abnormal wastage of materials, labour or production costs; (b) storage costs, unless necessary in the production process; (c) administrative overheads not contributing to bringing inventories to present location/condition; (d) selling and distribution costs.",
+ "note":"This question's MAIN body is on AS 13 (Accounting for Investments) — bonus/rights-issue Investment A/c working. AS 2 appears only as an alternative 'OR' theory sub-question (costs excluded from inventory cost)."},
+
+{"session":"MTP-02 May 2024","type":"MTP","qno":"Q1(b)","marks":5,"combo":null,
+ "q":"Wooden Plywood Limited has normal wastage of 5%. During 2023-24, used 16,000 MT raw material @ Rs.190/MT; at year-end, 950 MT wastage in stock. (1) Calculate abnormal loss. (2) Explain treatment of normal and abnormal loss as per AS 2.",
+ "a":"Material used = 16,000×190 = Rs.30,40,000. Normal loss (5%) = 800 MT (included in cost of inventories). Net quantity = 15,200 MT. Abnormal loss = 950−800 = 150 MT → <b>Rs. 30,000</b> [150 × Rs.200 (30,40,000/15,200)] — charged to P&L per AS 2; normal loss stays absorbed in inventory cost."},
+
+{"session":"PYQ May 2024","type":"PYQ","qno":"Q1(b)","marks":7,"combo":null,
+ "q":"Well Wear Limited manufactures Polyester (P) and Nylon (N); by-product Fiber (F) also emerges. Raw material for 30,000 units Rs.3,50,000; Wages Rs.1,60,000; Fixed OH Rs.1,20,000; Variable OH Rs.60,000. Output: P 12,500, N 10,000, F 3,200 units. Closing stock: P 1,600, N 400 units. Market price P Rs.100, N Rs.60/unit; F sold @Rs.40/unit, profit Rs.8,000 after Rs.10,000 processing + Rs.9,000 packing. Scrap realized Rs.5,000. Compute closing inventory value of P and N.",
+ "a":"NRV of by-product F = 1,28,000 − 10,000 − 9,000 = Rs.1,09,000. Joint cost = 6,90,000 − 1,09,000 − 5,000 = Rs.5,76,000, split 12,50,000:6,00,000 → Rs.3,89,189 and Rs.1,86,811 → cost/unit Rs.31.14 (P), Rs.18.68 (N).<br><b>Closing inventory: Polyester = Rs. 49,824; Nylon = Rs. 7,472.</b>"}
+];
+
+var container = document.getElementById('questions');
+DATA.forEach(function(item, i){
+  var typeClass = item.type==='PYQ' ? 'b-pyq' : (item.type==='RTP' ? 'b-rtp' : 'b-mtp');
+  var card = document.createElement('div');
+  card.className = 'qcard';
+  var comboHtml = item.combo ? '<div class="combo-note">⚠️ Combined question: along with <b>AS 2</b>, this question also covers <b>'+item.combo+'</b>.'+(item.note?'<br><span style="font-weight:400;">'+item.note+'</span>':'')+'</div>' : '';
+  card.innerHTML =
+    '<div class="meta">'+
+      '<span class="badge '+typeClass+'">'+item.type+'</span>'+
+      (item.combo ? '<span class="badge b-combo">Combined</span>' : '')+
+      '<span class="session">'+item.session+'</span>'+
+      '<span class="qno">'+item.qno+(item.marks?' · '+item.marks+' Marks':'')+'</span>'+
+    '</div>'+
+    comboHtml+
+    '<div class="qtext">'+item.q+'</div>'+
+    '<details><summary>▸ View Answer</summary><div class="ans">'+item.a+'</div></details>';
+  container.appendChild(card);
+});
+</script>
+</body>
+</html>
