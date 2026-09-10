@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CA Inter FM — All Concepts</title>
+<script>document.documentElement.setAttribute('data-theme','light');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,650&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f1e8; --bg-elev:#faf8f1; --card:#ffffff;
+    --ink:#20242b; --ink-soft:#5b6270; --ink-faint:#8b93a2;
+    --line:#e0dccb; --line-strong:#c9c3ad;
+    --red:#c0392b; --blue:#2352a8; --green:#1e7a4d; --purple:#6b3fa0;
+    --accent:#0f9d8f;
+    --shadow: 0 12px 30px -18px rgba(30,36,44,.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15171c; --bg-elev:#1b1e24; --card:#20242c;
+      --ink:#e9ecf2; --ink-soft:#a7afbd; --ink-faint:#6f7889;
+      --line:#2c313b; --line-strong:#3b414d;
+      --red:#f2857a; --blue:#8fb3f0; --green:#79cfa0; --purple:#c6a5e8;
+      --accent:#3fd0c0;
+      --shadow: 0 12px 30px -16px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15171c; --bg-elev:#1b1e24; --card:#20242c;
+    --ink:#e9ecf2; --ink-soft:#a7afbd; --ink-faint:#6f7889;
+    --line:#2c313b; --line-strong:#3b414d;
+    --red:#f2857a; --blue:#8fb3f0; --green:#79cfa0; --purple:#c6a5e8;
+    --accent:#3fd0c0;
+    --shadow: 0 12px 30px -16px rgba(0,0,0,.6);
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{ background:var(--bg); color:var(--ink); font-family:"Source Serif 4",Georgia,serif; -webkit-font-smoothing:antialiased; line-height:1.6; }
+  h1,h2,h3,h4{ font-family:"Fraunces",Georgia,serif; }
+  .mono{ font-family:"IBM Plex Mono",ui-monospace,monospace; }
+
+  #app{ display:grid; grid-template-columns:290px 1fr; min-height:100vh; }
+
+  nav.side{ border-right:1px solid var(--line); background:var(--bg-elev); padding:20px 12px 60px; position:sticky; top:0; height:100vh; overflow-y:auto; }
+  nav .brand{ font-family:"Fraunces",Georgia,serif; font-weight:650; font-size:16px; padding:0 10px 6px; }
+  nav .brand small{ display:block; font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-soft); font-weight:400; margin-top:3px; letter-spacing:.02em; }
+  nav a{ display:flex; gap:9px; align-items:baseline; padding:9px 10px; border-radius:8px; color:var(--ink); text-decoration:none; font-size:13.5px; margin-bottom:1px; }
+  nav a:hover{ background:var(--card); }
+  nav a.active{ background:var(--card); color:var(--red); font-weight:600; box-shadow:var(--shadow); }
+  nav a .n{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); flex:none; width:16px; }
+
+  main{ max-width:900px; margin:0 auto; padding:36px 40px 120px; }
+  .toc-note{ font-size:12.5px; color:var(--ink-soft); background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; padding:12px 15px; margin-bottom:34px; }
+
+  section.chap{ margin-bottom:54px; scroll-margin-top:20px; }
+  section.chap > h2{ font-size:25px; font-weight:650; color:var(--red); margin:0 0 4px; border-bottom:2px solid var(--red); padding-bottom:6px; display:inline-block; }
+  section.chap > .src{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-faint); margin:8px 0 20px; }
+
+  .block{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:16px 0; box-shadow:var(--shadow); }
+  .block > h3{ font-size:16.5px; font-weight:600; color:var(--red); margin:2px 0 12px; }
+  .block > h4{ font-size:14px; font-weight:600; color:var(--purple); margin:16px 0 8px; }
+  .block p{ margin:8px 0; }
+  .block ul, .block ol{ margin:8px 0; padding-left:22px; }
+  .block li{ margin:5px 0; }
+  .note{ font-size:12.5px; color:var(--ink-soft); font-style:italic; border-left:3px solid var(--line-strong); padding-left:10px; margin:10px 0; }
+  .warn{ background:color-mix(in srgb, var(--red) 8%, transparent); border:1px solid color-mix(in srgb, var(--red) 30%, transparent); border-radius:9px; padding:10px 13px; font-size:13.5px; margin:12px 0; }
+  .warn b{ color:var(--red); }
+  .k{ color:var(--blue); font-weight:600; }
+  .g{ color:var(--green); }
+  .r{ color:var(--red); font-weight:600; }
+
+  /* fraction */
+  .f{ display:inline-flex; flex-direction:column; text-align:center; vertical-align:middle; margin:0 .18em; font-family:"IBM Plex Mono",monospace; font-size:.92em; }
+  .f > span{ padding:1px .45em; }
+  .f > span:first-child{ border-bottom:1.6px solid currentColor; }
+  .eq{ font-family:"IBM Plex Mono",monospace; font-size:13.5px; background:var(--bg-elev); border:1px solid var(--line); border-radius:8px; padding:10px 13px; margin:10px 0; overflow-x:auto; color:var(--blue); }
+  .eq .lbl{ color:var(--ink); font-weight:600; }
+
+  table.t{ border-collapse:collapse; width:100%; margin:12px 0; font-size:13px; font-family:"IBM Plex Mono",monospace; }
+  table.t th, table.t td{ border:1px solid var(--line-strong); padding:6px 9px; text-align:left; }
+  table.t th{ background:var(--bg-elev); font-weight:600; }
+  table.t td.num, table.t th.num{ text-align:right; }
+
+  /* simple tree */
+  .tree{ margin:14px 0; }
+  .tree .root{ text-align:center; font-weight:600; color:var(--red); margin-bottom:4px; }
+  .tree .branches{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .tree .branch{ flex:1 1 160px; min-width:150px; border:1px solid var(--line-strong); border-top:3px solid var(--accent); border-radius:9px; padding:10px 12px; background:var(--bg-elev); }
+  .tree .branch h4{ margin:0 0 6px; font-size:13.5px; color:var(--blue); }
+  .tree .branch p, .tree .branch ul{ font-size:12.5px; margin:4px 0; }
+
+  .cost-sheet{ font-family:"IBM Plex Mono",monospace; font-size:12.5px; background:var(--bg-elev); border:1px solid var(--line); border-radius:9px; padding:12px 14px; margin:10px 0; }
+  .cost-sheet div{ padding:1px 0; }
+  .cost-sheet .tot{ border-top:1px solid var(--line-strong); font-weight:600; color:var(--red); }
+  .cost-sheet .box{ border:1.5px solid var(--red); border-radius:5px; padding:2px 6px; display:inline-block; color:var(--red); font-weight:600; }
+
+  @media (max-width:900px){
+    #app{ grid-template-columns:1fr; }
+    nav.side{ position:static; height:auto; border-right:none; border-bottom:1px solid var(--line); }
+    main{ padding:24px 18px 100px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+<nav class="side">
+  <div class="brand">CA Inter FM — All Concepts
+    <small>Transcribed from CA Amit Sharma's Concept Revision Marathon notes · chapter-wise</small>
+  </div>
+  <a href="#c1"><span class="n">01</span>Introduction</a>
+  <a href="#c2"><span class="n">02</span>FM Statements (P&amp;L &amp; Balance Sheet)</a>
+  <a href="#c3"><span class="n">03</span>Ratio Analysis</a>
+  <a href="#c4"><span class="n">04</span>Leverage</a>
+  <a href="#c5"><span class="n">05</span>Capital Structure (EPS / EBIT / Indifference)</a>
+  <a href="#c6"><span class="n">06</span>Cost of Capital</a>
+  <a href="#c7"><span class="n">07</span>Dividend Decisions</a>
+  <a href="#c8"><span class="n">08</span>Receivables (Debtors) Management</a>
+  <a href="#c9"><span class="n">09</span>Working Capital Management</a>
+</nav>
+
+<main>
+<h1 style="font-size:28px;margin:0 0 6px;">CA Inter FM — All Concepts</h1>
+<div class="toc-note">
+  Full typed transcription of every concept from the handwritten <b>Concept Revision Marathon</b> notes (Jan 26, CA Amit Sharma), organised chapter-wise. Branding header/footer of the source pages is excluded. Formulas and diagrams reproduced faithfully; wording lightly cleaned for readability. <b>D</b> = dividend, <b>g</b> = growth, <b>Ke</b> = cost of equity, <b>Kre</b> = cost of retained earnings, <b>Kp</b> = cost of pref, <b>Kd</b> = cost of debt, <b>NP</b> = net proceeds, <b>IP</b> = issue price, <b>RV</b> = redemption value, <b>FV</b> = face value, <b>MPS</b> = market price, <b>R/S</b> = reserves &amp; surplus, <b>RTP</b> = related to production.
+</div>
+
+<!-- ============ 1. INTRODUCTION ============ -->
+<section class="chap" id="c1">
+  <h2>1 · Introduction</h2>
+  <div class="src">Source: page 1</div>
+
+  <div class="block">
+    <h3>Three most important questions of FM</h3>
+    <div class="tree">
+      <div class="branches">
+        <div class="branch">
+          <h4>1. Where to get funds from?</h4>
+          <p>Sources → <b>Equity (Eq)</b>, <b>Preference (Pref)</b>, <b>Debt (Deb)</b></p>
+          <p>Leads to two topics:</p>
+          <ul><li><b>Cost of Capital</b></li><li><b>Capital Structure</b></li></ul>
+        </div>
+        <div class="branch">
+          <h4>2. Where to invest?</h4>
+          <ul>
+            <li><b>Daily expenditure</b> → <b>Working Capital</b></li>
+            <li><b>Capital expenditure</b> → <b>Investment Decision</b> (capital budgeting)</li>
+          </ul>
+        </div>
+        <div class="branch">
+          <h4>3. How much dividend?</h4>
+          <p><b>Dividend</b> → <b>Dividend Decision</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. FM STATEMENTS ============ -->
+<section class="chap" id="c2">
+  <h2>2 · FM Statements — P&amp;L and Balance Sheet</h2>
+  <div class="src">Source: pages 2–3</div>
+
+  <div class="block">
+    <h3>FM Profit &amp; Loss Statement — two formats</h3>
+    <div class="tree"><div class="branches">
+      <div class="branch">
+        <h4>Format for the Ratio chapter</h4>
+        <div class="cost-sheet">
+          <div>Sales</div>
+          <div>(−) COGS</div>
+          <div class="tot">Gross Profit</div>
+          <div>(−) Operating expense</div>
+          <div class="tot">Operating Profit = <b>EBIT</b></div>
+          <div>(−) Interest</div>
+          <div class="tot">EBT</div>
+          <div>(−) Tax</div>
+          <div class="tot">EAT = Net Profit</div>
+          <div>(−) Preference dividend</div>
+          <div class="tot">EATESH</div>
+          <div>(−) Equity dividend</div>
+          <div class="tot">Retained Earnings</div>
+        </div>
+      </div>
+      <div class="branch">
+        <h4>Format for all remaining chapters</h4>
+        <div class="cost-sheet">
+          <div>Sales</div>
+          <div>(−) Variable expense</div>
+          <div class="tot">Contribution</div>
+          <div>(−) Total fixed (operating) expense</div>
+          <div class="tot">Operating Profit = <b>EBIT</b></div>
+          <div>(−) Interest</div>
+          <div class="tot">EBT</div>
+          <div>(−) Tax</div>
+          <div class="tot">EAT = Net Profit</div>
+          <div>(−) Preference dividend</div>
+          <div class="tot">EATESH</div>
+          <div>÷ No. of equity shares</div>
+          <div class="tot">EPS</div>
+        </div>
+      </div>
+    </div></div>
+    <p><b>EATESH</b> = Earnings Available To Equity Share Holders.</p>
+    <ul>
+      <li><b>Interest or Dividend is always calculated on <span class="r">face value</span></b> (not on issue price / market price).</li>
+      <li>Operating expense = Admin + Selling + Distribution.</li>
+      <li>COGS = cost of <i>making</i> the goods.</li>
+      <li>Total operating cost = cost of making goods <b>+</b> cost of running the company (COGS + operating expense).</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>FM Balance Sheet</h3>
+    <table class="t">
+      <tr><th>Capital + Liabilities</th><th>Assets</th></tr>
+      <tr>
+        <td><b>Capital</b> — Equity + R/S ; Preference share capital<br>
+        <b>NCL</b> — Debenture, long-term loan<br>
+        <b>CL</b> — Creditor ; Bank overdraft ; O/s expense ; Advance income</td>
+        <td><b>FA</b> — Plant &amp; machinery ; Building &amp; furniture ; Investments &amp; intangibles<br>
+        <b>CA</b> — Debtors ; Inventory ; Cash &amp; bank ; Prepaid expense ; Accrued income ; Unabsorbed depreciation / accumulated loss</td>
+      </tr>
+    </table>
+    <h4>Key capital definitions</h4>
+    <div class="eq"><span class="lbl">Total Capital</span> = [Equity + R/S] <sub>Ke</sub> + [Pref share cap] <sub>Kp</sub> + [Debenture] <sub>Kd</sub>
+    <br>(and Kre applies to R/S portion)</div>
+    <p>Capital employed = capital mix.</p>
+    <div class="eq"><span class="lbl">Shareholders' funds = Net worth = Proprietary fund</span> = Equity + R/S + Preference</div>
+    <div class="eq"><span class="lbl">Equity shareholders' fund = Shareholders' equity</span> = Equity + R/S</div>
+  </div>
+</section>
+
+<!-- ============ 3. RATIO ANALYSIS ============ -->
+<section class="chap" id="c3">
+  <h2>3 · Ratio Analysis</h2>
+  <div class="src">Source: pages 4–7</div>
+
+  <div class="block">
+    <h3>① Profitability Ratios = <span class="f"><span>Income or Expense</span><span>Sale</span></span></h3>
+    <table class="t">
+      <tr><th>Ratio</th><th>Formula</th></tr>
+      <tr><td>NP ratio</td><td><span class="f"><span>NP</span><span>Sale</span></span></td></tr>
+      <tr><td>GP ratio</td><td><span class="f"><span>GP</span><span>Sale</span></span></td></tr>
+      <tr><td>COGS ratio</td><td><span class="f"><span>COGS</span><span>Sale</span></span></td></tr>
+      <tr><td>Operating expense ratio</td><td><span class="f"><span>Admin/Selling/Distribution exp</span><span>Sale</span></span></td></tr>
+      <tr><td>Operating profit ratio</td><td><span class="f"><span>EBIT</span><span>Sale</span></span></td></tr>
+      <tr><td>Operating ratio</td><td><span class="f"><span>Operating expense + COGS</span><span>Sale</span></span></td></tr>
+      <tr><td>Pre-tax profit ratio</td><td><span class="f"><span>EBT</span><span>Sale</span></span></td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <h3>② Return Ratios = <span class="f"><span>What I earn (kya kamaya)</span><span>What I invest (kya lagaya)</span></span></h3>
+    <table class="t">
+      <tr><th>Ratio</th><th>Formula</th></tr>
+      <tr><td>Return on Equity</td><td><span class="f"><span>EATESH</span><span>Equity share cap + R/S</span></span></td></tr>
+      <tr><td>Return on Preference</td><td><span class="f"><span>Pref dividend</span><span>Pref share cap</span></span></td></tr>
+      <tr><td>ROCE</td><td><span class="f"><span>EBIT</span><span>Equity + R/S + Pref + Debt</span></span></td></tr>
+      <tr><td>Return on Assets</td><td><span class="f"><span>EBIT (1 − t)</span><span>Total assets</span></span></td></tr>
+      <tr><td>Return on Net Worth</td><td><span class="f"><span>EAT</span><span>Equity + R/S + Pref</span></span></td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <h3>Payout / Per-share / Yield</h3>
+    <h4>Payout <span style="font-weight:400;color:var(--ink-soft)">(how much is given away)</span></h4>
+    <div class="eq"><span class="lbl">Dividend Payout</span> = <span class="f"><span>Total dividend</span><span>Total EATESH</span></span> &nbsp; or &nbsp; <span class="f"><span>DPS</span><span>EPS</span></span></div>
+    <h4>Per share <span style="font-weight:400;color:var(--ink-soft)">(for 1 equity share)</span></h4>
+    <div class="eq"><span class="lbl">Dividend Per Share (DPS)</span> = <span class="f"><span>Total equity dividend</span><span>Total no. of equity shares</span></span></div>
+    <div class="eq"><span class="lbl">Earning Per Share (EPS)</span> = <span class="f"><span>EATESH</span><span>Total no. of equity shares</span></span></div>
+    <h4>Yield <span style="font-weight:400;color:var(--ink-soft)">(compare with MPS)</span></h4>
+    <div class="eq"><span class="lbl">Dividend Yield</span> = <span class="f"><span>DPS</span><span>MPS</span></span> &nbsp;&nbsp; <span class="lbl">Earning Yield</span> = <span class="f"><span>EPS</span><span>MPS</span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>Valuation &amp; structure ratios</h3>
+    <div class="eq"><span class="lbl">Price to Earning (P/E)</span> = <span class="f"><span>MPS</span><span>EPS</span></span> &nbsp;&nbsp;
+      <span class="lbl">Debt to Equity</span> = <span class="f"><span>Long-term Debt</span><span>Equity + R/S</span></span> &nbsp;&nbsp;
+      <span class="lbl">Fixed Asset to Sale</span> = <span class="f"><span>FA</span><span>Sale</span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>③ Turnover Ratios = <span class="f"><span>Sale</span><span>Whatever's turnover is asked</span></span></h3>
+    <p class="note">Turnover ("T/O") means <b>divide</b>.</p>
+    <table class="t">
+      <tr><th>Ratio</th><th>Formula</th></tr>
+      <tr><td>Assets T/O</td><td><span class="f"><span>Sale</span><span>Assets</span></span></td></tr>
+      <tr><td>Fixed Asset T/O</td><td><span class="f"><span>Sale</span><span>Fixed Assets</span></span></td></tr>
+      <tr><td>Capital T/O</td><td><span class="f"><span>Sale</span><span>Equity + R/S + Pref + Debt</span></span></td></tr>
+      <tr><td>Debtors T/O</td><td><span class="f"><span>Credit sale</span><span>Debtor</span></span></td></tr>
+      <tr><td>Receivables T/O</td><td><span class="f"><span>Credit sale</span><span>Debtor + B/R</span></span></td></tr>
+      <tr><td>Creditors T/O</td><td><span class="f"><span>Credit purchase</span><span>Creditor</span></span></td></tr>
+      <tr><td>Payables T/O</td><td><span class="f"><span>Credit purchase</span><span>Creditor + B/P</span></span></td></tr>
+      <tr><td>Inventory T/O</td><td><span class="f"><span>COGS</span><span>Inventory</span></span></td></tr>
+    </table>
+    <p class="note"><b>Promise:</b> if both opening &amp; closing data are given, take the average = <span class="f"><span>Opening + Closing</span><span>2</span></span></p>
+  </div>
+
+  <div class="block">
+    <h3>④ Velocity (Days)</h3>
+    <p>General form = <span class="f"><span>360 or 365 days (or 12 months / 52 weeks)</span><span>relevant T/O ratio</span></span></p>
+    <ul>
+      <li>Debtor velocity (days) = <span class="f"><span>360 / 365 days</span><span>Debtor T/O</span></span></li>
+      <li>Creditor velocity (days) = <span class="f"><span>360 / 365 days</span><span>Creditor T/O</span></span></li>
+      <li>Inventory velocity (days) = <span class="f"><span>360 / 365 days</span><span>Inventory T/O</span></span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>⑤ Coverage Ratios = <span class="f"><span>Which income will cover</span><span>Which expense to cover</span></span></h3>
+    <table class="t">
+      <tr><th>Ratio</th><th>Formula</th></tr>
+      <tr><td>Interest Coverage</td><td><span class="f"><span>EBIT</span><span>Interest</span></span></td></tr>
+      <tr><td>Equity Dividend Coverage</td><td><span class="f"><span>EATESH</span><span>Equity dividend</span></span></td></tr>
+      <tr><td>Preference Dividend Coverage</td><td><span class="f"><span>EAT</span><span>Pref dividend</span></span></td></tr>
+      <tr><td>Debt Service Coverage</td><td><span class="f"><span>EBIT</span><span>Interest + Instalment</span></span></td></tr>
+      <tr><td>Fixed Charge Coverage</td><td><span class="f"><span>EBIT + Depreciation</span><span>Interest + Instalment</span></span></td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <h3>Liquidity ratios</h3>
+    <div class="eq"><span class="lbl">Current Ratio</span> = <span class="f"><span>CA</span><span>CL</span></span></div>
+    <div class="eq"><span class="lbl">Quick Ratio (Acid-Test)</span> = <span class="f"><span>CA − Prepaid expense − Inventory</span><span>CL</span></span></div>
+    <div class="eq"><span class="lbl">Cash Ratio</span> = <span class="f"><span>Cash + Marketable securities</span><span>CL</span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>Structure (pure %) ratios</h3>
+    <p>Denominator for all three = Debt + Equity + R/S + Pref</p>
+    <div class="eq"><span class="lbl">Debt Ratio</span> = <span class="f"><span>Debt</span><span>Debt + Equity + R/S + Pref</span></span> &nbsp;
+      <span class="lbl">Equity Ratio</span> = <span class="f"><span>Equity + R/S</span><span>Debt + Equity + R/S + Pref</span></span> &nbsp;
+      <span class="lbl">Pref Ratio</span> = <span class="f"><span>Pref</span><span>Debt + Equity + R/S + Pref</span></span></div>
+    <div class="eq"><span class="lbl">⑥ Capital Gearing Ratio</span> = <span class="f"><span>Interest / dividend-bearing funds</span><span>Owners' funds</span></span> = <span class="f"><span>Debt + Pref</span><span>Equity + R/S</span></span></div>
+    <div class="eq"><span class="lbl">⑦ Proprietary Ratio</span> = <span class="f"><span>Proprietary fund</span><span>Total assets</span></span> = <span class="f"><span>Equity + R/S + Pref</span><span>Total assets</span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>⑧ Basic Defence Interval <span style="font-weight:400;color:var(--ink-soft)">(how many days you can spend from quick assets)</span></h3>
+    <div class="eq"><span class="lbl">Daily expense</span> = <span class="f"><span>COGS + Admin/Selling/Distribution</span><span>365 days</span></span></div>
+    <div class="eq"><span class="lbl">Basic Defence Interval</span> = <span class="f"><span>Quick Assets (CA − Prepaid − Inventory)</span><span>Daily expense</span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>⑨ DuPont — ROE decomposition</h3>
+    <div class="eq"><span class="lbl">ROE</span> = <span class="f"><span>EATESH</span><span>Equity + R/S</span></span> = <span class="f"><span>EAT</span><span>Sale</span></span> × <span class="f"><span>Sale</span><span>Total assets</span></span> × <span class="f"><span>Total assets</span><span>Equity + R/S</span></span></div>
+    <div class="eq">= Net Profit Ratio × Total Asset Turnover × Equity Multiplier</div>
+  </div>
+</section>
+
+<!-- ============ 4. LEVERAGE ============ -->
+<section class="chap" id="c4">
+  <h2>4 · Leverage</h2>
+  <div class="src">Source: pages 7–9</div>
+
+  <div class="block">
+    <h3>Concept</h3>
+    <p>Leverage = using <b>fixed cost</b> to increase profit.</p>
+    <div class="tree"><div class="branches">
+      <div class="branch"><h4>Operating Leverage (OL)</h4><p>Using <b>Operating Fixed Cost</b> to increase profit. Operating FC = Admin / Selling / Distribution.</p></div>
+      <div class="branch"><h4>Financial Leverage (FL)</h4><p>Using <b>Financial Fixed Cost</b> to increase profit. Financial FC = Interest &amp; <span class="f"><span>Pref dividend</span><span>(1 − t)</span></span></p></div>
+    </div></div>
+    <p class="note">Preference dividend is an after-tax figure; interest is before-tax. To compare, gross up the pref dividend: <b>after tax = 100 (1 − 0.3)</b>, so <b>before tax = <span class="f"><span>100</span><span>(1 − 0.3)</span></span></b>.</p>
+  </div>
+
+  <div class="block">
+    <h3>% Method = <span class="f"><span>% where you reach</span><span>% where you start</span></span></h3>
+    <div class="eq"><span class="lbl">OL</span> = <span class="f"><span>% change in EBIT</span><span>% change in Sale</span></span></div>
+    <div class="eq"><span class="lbl">FL</span> = <span class="f"><span>% change in EBT (or EAT or EPS)</span><span>% change in EBIT</span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>Ratio Method = <span class="f"><span>1st profit (upper)</span><span>2nd profit (lower)</span></span></h3>
+    <div class="eq"><span class="lbl">OL</span> = <span class="f"><span>Contribution</span><span>EBIT</span></span></div>
+    <div class="eq"><span class="lbl">FL — only interest</span> = <span class="f"><span>EBIT</span><span>EBT</span></span> &nbsp; or &nbsp; <span class="f"><span>EBIT</span><span>EBIT − Interest</span></span></div>
+    <div class="eq"><span class="lbl">FL — interest + pref dividend</span> = <span class="f"><span>EBIT</span><span>EBIT − Interest − <span class="f"><span>Pd</span><span>(1 − t)</span></span></span></span></div>
+    <div class="eq"><span class="lbl">Combined Leverage (CL)</span> = OL × FL</div>
+  </div>
+
+  <div class="block">
+    <h3>Never ever in life…</h3>
+    <ul>
+      <li>OL &amp; FL are <b>not</b> restricted between 0 &amp; 1.</li>
+      <li>They <b>can be less than 0</b> (negative).</li>
+      <li>They <b>can be more than 1</b>.</li>
+    </ul>
+    <div class="eq"><span class="lbl">OL</span> = <span class="f"><span>1</span><span>Margin of Safety ratio (MOS)</span></span></div>
+    <div class="eq"><span class="lbl">Margin of Safety</span> = Actual Sale − BEP Sale = <span class="f"><span>Profit</span><span>PV ratio</span></span></div>
+  </div>
+</section>
+
+<!-- ============ 5. CAPITAL STRUCTURE ============ -->
+<section class="chap" id="c5">
+  <h2>5 · Capital Structure (EPS / EBIT / Indifference)</h2>
+  <div class="src">Source: pages 10–12</div>
+
+  <div class="block">
+    <h3>Core idea</h3>
+    <p>We need an amount — <b>how much</b> and <b>from where</b> (Equity, Preference, Debt). All this chapter asks is: <b>calculate EPS in each option</b> (Base option, Option 1, Option 2 …).</p>
+    <div class="cost-sheet">
+      <div>Sales</div>
+      <div>(−) Variable expense</div>
+      <div class="tot">Contribution</div>
+      <div>(−) Total fixed (operating) expense</div>
+      <div class="tot">Operating Profit = EBIT</div>
+      <div>(−) Interest old</div>
+      <div>(−) Interest new</div>
+      <div class="tot">EBT</div>
+      <div>(−) Tax</div>
+      <div class="tot">EAT = Net Profit</div>
+      <div>(−) Preference dividend</div>
+      <div class="tot">EATESH</div>
+      <div>÷ No. of shares</div>
+      <div class="tot">EPS</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Most important thing — calculating EBIT</h3>
+    <div class="tree"><div class="branches">
+      <div class="branch"><h4>EBIT is not changing &amp; given</h4><p>Simply given in the question.</p></div>
+      <div class="branch"><h4>EBIT is changing</h4>
+        <ul>
+          <li><b>ROI on new capital is constant</b> — new EBIT = new total capital × existing ROI (ROCE)</li>
+          <li><b>ROI on new capital is a specific %</b> given in question — new EBIT = new total capital × that %</li>
+        </ul>
+      </div>
+    </div></div>
+    <h4>Example — ROI on new capital is constant</h4>
+    <p>Current EBIT ₹5L, current equity ₹15L, current debt ₹25L.</p>
+    <div class="eq">Current ROI / ROCE = <span class="f"><span>5</span><span>15 + 25</span></span> = 12.5%</div>
+    <p>Raise ₹20L → New total capital = 15L + 25L + 20L = ₹60L. ROI = ROCE = 12.5%.</p>
+    <div class="eq">New EBIT = 60L × 12.5% = ₹7.5 lakh</div>
+    <h4>Example — ROI on new capital is 10%</h4>
+    <p>Same figures; new total capital = ₹60L; ROI on new capital = 10% (given).</p>
+    <div class="eq">New EBIT = 60L × 10% = ₹6 lakh</div>
+    <p class="warn">Please keep in mind: if <b>P/E ratio (MPS / EPS)</b> is given, also calculate <b>MPS</b>.</p>
+  </div>
+
+  <div class="block">
+    <h3>Optimum capital structure — weights</h3>
+    <table class="t">
+      <tr><th>Capital</th><th class="num">Amount</th><th class="num">Weight</th></tr>
+      <tr><td>Equity</td><td class="num">₹80L</td><td class="num">80/100 = 80%</td></tr>
+      <tr><td>Preference</td><td class="num">₹5L</td><td class="num">5/100 = 5%</td></tr>
+      <tr><td>Debt</td><td class="num">₹15L</td><td class="num">15/100 = 15%</td></tr>
+      <tr><td><b>Total</b></td><td class="num">₹100L</td><td class="num">100%</td></tr>
+    </table>
+    <p class="note">Whenever you raise capital, you raise it in this same ratio.</p>
+  </div>
+
+  <div class="block">
+    <h3>Indifference Point</h3>
+    <p>That level of <b>EBIT</b> at which EPS is the same in two options: <b>EPS<sub>A</sub> = EPS<sub>B</sub></b>.</p>
+    <div class="eq">
+      <span class="f"><span>(EBIT − Interest<sub>A</sub>)(1 − tax) − Pref dividend<sub>A</sub></span><span>No. of shares<sub>A</sub></span></span>
+      &nbsp;=&nbsp;
+      <span class="f"><span>(EBIT − Interest<sub>B</sub>)(1 − tax) − Pref dividend<sub>B</sub></span><span>No. of shares<sub>B</sub></span></span>
+    </div>
+    <table class="t">
+      <tr><th>Situation</th><th>Decision</th></tr>
+      <tr><td>Actual EBIT &lt; Indifference point</td><td>Choose option with <b>less financial leverage</b></td></tr>
+      <tr><td>Actual EBIT = Indifference point</td><td>Any option</td></tr>
+      <tr><td>Actual EBIT &gt; Indifference point</td><td>Choose option with <b>more financial leverage</b></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 6. COST OF CAPITAL ============ -->
+<section class="chap" id="c6">
+  <h2>6 · Cost of Capital</h2>
+  <div class="src">Source: pages 13–18</div>
+
+  <div class="block">
+    <h3>Meaning</h3>
+    <p>When you go to the market to raise capital, the amount paid to the <b>owners of capital</b> is called the cost of capital. It equals the <b>minimum rate of return expected by the owners of the capital</b>.</p>
+    <p>Three costs: <b>Ke</b> (cost of equity), <b>Kp</b> (cost of preference), <b>Kd</b> (cost of debt).</p>
+  </div>
+
+  <div class="block">
+    <h3>Irredeemable — no fixed life</h3>
+    <p>Here we don't repay the original amount — only pay interest or dividend. General rule: <b>Cost = <span class="f"><span>Given (paid)</span><span>Received (मिला)</span></span></b></p>
+    <div class="eq"><span class="lbl">Ke</span> = <span class="f"><span>Equity dividend</span><span>Equity share cap (NP)</span></span> &nbsp; → &nbsp; P<sub>0</sub> = <span class="f"><span>D</span><span>Ke</span></span></div>
+    <div class="eq"><span class="lbl">Kp</span> = <span class="f"><span>Pref dividend</span><span>Pref share cap (NP)</span></span></div>
+    <div class="eq"><span class="lbl">Kd</span> = <span class="f"><span>Interest (1 − t)</span><span>Debt (NP)</span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>Redeemable — fixed life</h3>
+    <p>Here we pay <b>both</b> — interest / dividend <b>and</b> the main amount at the end of the fixed life.</p>
+    <div class="eq"><span class="lbl">Kd</span> = <span class="f"><span>Interest (1 − t) + <span class="f"><span>RV − NP</span><span>life</span></span></span><span><span class="f"><span>RV + NP</span><span>2</span></span></span></span></div>
+    <div class="eq"><span class="lbl">Kp</span> = <span class="f"><span>Pref dividend + <span class="f"><span>RV − NP</span><span>life</span></span></span><span><span class="f"><span>RV + NP</span><span>2</span></span></span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>Most important — RV, NP, IP, MPS, FV</h3>
+    <ul>
+      <li><b>RV</b> = Redemption Value = amount paid at the last. <b>If nothing is given, RV = 100.</b></li>
+      <li><b>NP</b> = Net proceeds, <b>IP</b> = Issue price, <b>MPS</b> = Market price, <b>FV</b> = Face Value.</li>
+      <li>Issue price / market price = price the customer / stock market will pay.</li>
+    </ul>
+    <table class="t">
+      <tr><th></th><th class="num">Debenture</th><th class="num">Equity</th><th class="num">Preference</th></tr>
+      <tr><td>Face value</td><td class="num">100</td><td class="num">10</td><td class="num">10</td></tr>
+      <tr><td>+ Premium on FV</td><td class="num">10% × 100 = 10</td><td class="num">—</td><td class="num">0</td></tr>
+      <tr><td>− Discount on FV</td><td class="num">—</td><td class="num">5% × 10 = (0.5)</td><td class="num">0</td></tr>
+      <tr><td><b>Issue price</b></td><td class="num">110</td><td class="num">9.5</td><td class="num">10</td></tr>
+      <tr><td>(−) Flotation cost on issue price (2%)</td><td class="num">110 × 2%</td><td class="num">9.5 × 2%</td><td class="num">10 × 2%</td></tr>
+      <tr><td><b>Net proceeds</b></td><td class="num">107.8</td><td class="num">9.31</td><td class="num">9.8</td></tr>
+    </table>
+    <div class="warn">
+      <b>Warning — common ICAI mistake.</b> Depending on what is given, compute NP directly:
+      <ul>
+        <li>Only <b>face value</b> &amp; flotation cost given → NP = FV − flotation cost %</li>
+        <li>Only <b>issue price</b> &amp; flotation cost given → NP = IP − flotation cost %</li>
+        <li>Only <b>MPS</b> &amp; flotation cost given → NP = MPS − flotation cost %</li>
+        <li>FV, IP &amp; flotation cost given → NP = IP − flotation cost %</li>
+        <li>IP, MPS &amp; flotation cost given → NP = IP − flotation cost %</li>
+        <li>MPS, FV &amp; flotation cost given → NP = MPS − flotation cost %</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Redeemable — Convertible Debenture / Preference (life fixed)</h3>
+    <p>When there is an option to convert debt or preference into equity <b>at the end of life</b>:</p>
+    <div class="eq"><span class="lbl">Convertible Kd</span> = <span class="f"><span>Interest (1 − t) + <span class="f"><span>RV − NP</span><span>life</span></span></span><span><span class="f"><span>RV + NP</span><span>2</span></span></span></span></div>
+    <div class="eq"><span class="lbl">Convertible Kp</span> = <span class="f"><span>Pref dividend + <span class="f"><span>RV − NP</span><span>life</span></span></span><span><span class="f"><span>RV + NP</span><span>2</span></span></span></span></div>
+    <p>For <b>RV</b>, choose the <b>higher</b> of:</p>
+    <ul>
+      <li>Redemption amount, <b>OR</b></li>
+      <li>(No. of equity shares received for 1 debenture / preference) × (price of equity on the last redemption date)</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Cost of Debt via YTM / IRR</h3>
+    <p><b>IRR (YTM)</b> = the rate at which PV of all cash outflow = PV of all cash inflow.</p>
+    <h4>Example</h4>
+    <table class="t">
+      <tr><th class="num">Year</th><th class="num">Cash flow</th><th class="num">PV @ 5%</th><th class="num">PV @ 7%</th></tr>
+      <tr><td class="num">0</td><td class="num">NP = (112.7)</td><td class="num">(112.7)</td><td class="num">(112.7)</td></tr>
+      <tr><td class="num">1 – 9</td><td class="num">7 each</td><td class="num"></td><td class="num"></td></tr>
+      <tr><td class="num">10</td><td class="num">7 + 100 = 107</td><td class="num"></td><td class="num"></td></tr>
+      <tr><td class="num" colspan="2">Total PV of inflows</td><td class="num">115.44</td><td class="num">100</td></tr>
+      <tr><td class="num" colspan="2"><b>NPV</b></td><td class="num">+2.74</td><td class="num">(12.7)</td></tr>
+    </table>
+    <h4>Approx formula</h4>
+    <div class="eq"><span class="lbl">Kd</span> = <span class="f"><span>Interest (1 − t) + <span class="f"><span>RV − NP</span><span>life</span></span></span><span><span class="f"><span>RV + NP</span><span>2</span></span></span></span> = <span class="f"><span>7 + <span class="f"><span>100 − 112.7</span><span>10</span></span></span><span><span class="f"><span>100 + 112.7</span><span>2</span></span></span></span> = 5.39%</div>
+    <h4>IRR interpolation</h4>
+    <div class="eq"><span class="lbl">IRR</span> = Lower rate + <span class="f"><span>NPV at lower rate</span><span>NPV at lower rate − NPV at higher rate</span></span> × (difference in rates)</div>
+    <div class="eq">= 5 + <span class="f"><span>2.74</span><span>2.74 − (−12.7)</span></span> × (7 − 5) = 5 + <span class="f"><span>2.74 × 2</span><span>15.44</span></span> = 5 + 0.35 = 5.35%</div>
+  </div>
+
+  <div class="block">
+    <h3>Cost of Equity (Ke) — approaches</h3>
+    <h4>1. Dividend Discount (basic) model</h4>
+    <div class="eq"><span class="lbl">Ke</span> = <span class="f"><span>D</span><span>NP or P<sub>0</sub> or MPS</span></span> &nbsp; → &nbsp; P<sub>0</sub> = <span class="f"><span>D</span><span>Ke</span></span></div>
+    <h4>2. Dividend Growth model</h4>
+    <div class="eq">P<sub>0</sub> = <span class="f"><span>D<sub>0</sub>(1 + g)</span><span>Ke% − g%</span></span> = <span class="f"><span>D<sub>1</sub></span><span>Ke% − g%</span></span></div>
+    <div class="eq"><span class="lbl">Growth (g)</span> = b × r &nbsp; where &nbsp; b = <span class="f"><span>Retained EPS</span><span>EPS</span></span> (retention ratio), &nbsp; r = ROI or ROE</div>
+    <h4>3. CAPM</h4>
+    <div class="eq"><span class="lbl">Ke</span> = R<sub>f</sub> + [R<sub>m</sub> − R<sub>f</sub>] × β</div>
+    <ul>
+      <li>R<sub>f</sub> = Risk-free return (T-Bill return / Govt Bond return)</li>
+      <li>R<sub>m</sub> = market return</li>
+      <li>R<sub>m</sub> − R<sub>f</sub> = market risk premium</li>
+    </ul>
+    <h4>4. Earning-yield ("worst") method</h4>
+    <div class="eq"><span class="lbl">Ke</span> = <span class="f"><span>EPS</span><span>MPS</span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>Ke and Kre — relationship</h3>
+    <p>Actual equity &amp; R/S are almost the same, so <b>generally Ke = Kre</b>.</p>
+    <div class="eq"><span class="lbl">Ke</span> = <span class="f"><span>D<sub>1</sub></span><span>IP − flotation cost</span></span> + g%</div>
+    <div class="eq"><span class="lbl">Kre</span> = <span class="f"><span>D<sub>1</sub></span><span>IP</span></span> + g%</div>
+    <p class="note">If flotation cost is given, reduce it from IP to get NP for Ke. Retained earnings carry no flotation cost, so Kre uses IP directly.</p>
+  </div>
+
+  <div class="block">
+    <h3>WACC</h3>
+    <table class="t">
+      <tr><th>Capital</th><th class="num">Amount</th><th class="num">Weight</th><th class="num">× Cost</th><th class="num">= WACC</th></tr>
+      <tr><td>Equity</td><td class="num">15L</td><td class="num">15/100 = 15%</td><td class="num">10%</td><td class="num">1.50%</td></tr>
+      <tr><td>Preference</td><td class="num">25L</td><td class="num">25/100 = 25%</td><td class="num">9%</td><td class="num">2.25%</td></tr>
+      <tr><td>Debt</td><td class="num">60L</td><td class="num">60/100 = 60%</td><td class="num">6%</td><td class="num">3.60%</td></tr>
+      <tr><td><b>Total</b></td><td class="num">100L</td><td class="num">100%</td><td class="num"></td><td class="num"><b>7.35%</b></td></tr>
+    </table>
+    <p><b>Marginal Cost of Capital</b> = WACC, but here we take <b>only the new capital raised</b>.</p>
+  </div>
+</section>
+
+<!-- ============ 7. DIVIDEND DECISIONS ============ -->
+<section class="chap" id="c7">
+  <h2>7 · Dividend Decisions</h2>
+  <div class="src">Source: page 17 (same page as the Ke models above)</div>
+
+  <div class="block">
+    <h3>Walter model</h3>
+    <div class="eq"><span class="lbl">P<sub>0</sub></span> = <span class="f"><span>D<sub>1</sub></span><span>Ke</span></span> + <span class="f"><span>r × Retained EPS (EPS − DPS)</span><span>Ke<sup>2</sup></span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>Optimum Dividend Payout Ratio</h3>
+    <p><b>Ke</b> = minimum return expected by the holder = cost of capital. &nbsp; <b>r</b> = actual return earned by the company.</p>
+    <table class="t">
+      <tr><th>Case</th><th>Example</th><th>Decision</th></tr>
+      <tr><td>Ke &gt; r</td><td>Ke 10%, r 8%</td><td>Distribute the entire EPS as dividend → <b>DPS = EPS</b></td></tr>
+      <tr><td>Ke = r</td><td>10%, 10%</td><td>Any amount of dividend (indifferent)</td></tr>
+      <tr><td>Ke &lt; r</td><td>Ke 10%, r 12%</td><td>Retain everything → <b>dividend = 0</b></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 8. RECEIVABLES MANAGEMENT ============ -->
+<section class="chap" id="c8">
+  <h2>8 · Receivables (Debtors) Management</h2>
+  <div class="src">Source: pages 19–20</div>
+
+  <div class="block">
+    <h3>Two types of questions</h3>
+    <div class="tree"><div class="branches">
+      <div class="branch"><h4>Credit-policy based</h4><p>Evaluate whether giving / extending credit is worthwhile.</p></div>
+      <div class="branch"><h4>Factoring questions</h4><p>Evaluate cost/benefit of a factoring arrangement.</p></div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <h3>If we give credit — benefits vs drawbacks</h3>
+    <div class="tree"><div class="branches">
+      <div class="branch"><h4>Benefits</h4>
+        <div class="cost-sheet">
+          <div>Sale increase</div>
+          <div>(−) VC increase</div>
+          <div>(−) FC</div>
+          <div class="tot">Profit increase</div>
+          <div>(−) Tax</div>
+          <div class="tot">Net profit increase</div>
+        </div>
+      </div>
+      <div class="branch"><h4>Drawbacks</h4>
+        <ul>
+          <li>Admin cost</li>
+          <li>Bad debt loss</li>
+          <li>Opportunity cost of investment in debtors</li>
+        </ul>
+      </div>
+    </div></div>
+    <div class="eq"><span class="lbl">Opportunity cost</span> = Cost of credit sales × Opportunity cost % × <span class="f"><span>days</span><span>360</span></span></div>
+  </div>
+
+  <div class="block">
+    <h3>Evaluation format</h3>
+    <table class="t">
+      <tr><th>Particulars</th><th class="num">Base</th><th class="num">Option 1</th><th class="num">Option 2</th></tr>
+      <tr><td>Total Sale</td><td class="num">100</td><td class="num">120</td><td class="num">+20</td></tr>
+      <tr><td>(−) Total VC</td><td class="num">10</td><td class="num">(12)</td><td class="num">(2)</td></tr>
+      <tr><td>Total Contribution</td><td class="num">90</td><td class="num">108</td><td class="num">18</td></tr>
+      <tr><td>(−) Total FC</td><td class="num">(30)</td><td class="num">(30)</td><td class="num">0</td></tr>
+      <tr><td>(−) Bad debt</td><td class="num">(10)</td><td class="num">(15)</td><td class="num">(5)</td></tr>
+      <tr><td>(−) Admin cost</td><td class="num">(5)</td><td class="num">(10)</td><td class="num">(5)</td></tr>
+      <tr><td>(−) Discount given</td><td class="num">(4)</td><td class="num">(8)</td><td class="num">(4)</td></tr>
+      <tr><td>PBT</td><td class="num">21</td><td class="num">25</td><td class="num">4</td></tr>
+      <tr><td>(−) Tax</td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
+      <tr><td><b>EAT (A)</b></td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
+    </table>
+    <div class="eq"><span class="lbl">Opportunity cost (B)</span> = Cost of credit sales × Opportunity cost % × <span class="f"><span>days</span><span>360</span></span></div>
+    <div class="eq"><span class="lbl">Net Benefit</span> = A − B</div>
+  </div>
+</section>
+
+<!-- ============ 9. WORKING CAPITAL ============ -->
+<section class="chap" id="c9">
+  <h2>9 · Working Capital Management</h2>
+  <div class="src">Source: pages 20–24</div>
+
+  <div class="block">
+    <h3>Three types of questions</h3>
+    <div class="tree"><div class="branches">
+      <div class="branch"><h4>Operating Days (full cost sheet)</h4><p>Build the full cost sheet and attach the relevant "days" at each stage.</p></div>
+      <div class="branch"><h4>Working Capital amount</h4><p>Compute the rupee amount of each current asset / liability.</p></div>
+      <div class="branch"><h4>Double Shift</h4>
+        <ul style="font-size:12px"><li>RM → double</li><li>FG → double</li><li>Debtor → double</li><li>Creditor → double</li><li>WIP → same</li></ul>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <h3>Cost sheet (Operating Days approach)</h3>
+    <div class="cost-sheet">
+      <div>DM consumed <span class="box">RM days</span></div>
+      <div>+ Direct labour</div>
+      <div>+ Direct expense</div>
+      <div class="tot">Prime cost</div>
+      <div>+ Factory OH</div>
+      <div>+ Opening WIP</div>
+      <div>− Closing WIP</div>
+      <div class="tot">Factory cost</div>
+      <div>+ Admin OH (related to production)</div>
+      <div class="tot">COP <span class="box">WIP days</span></div>
+      <div>+ Opening FG</div>
+      <div>− Closing FG</div>
+      <div class="tot">COGS <span class="box">FG days</span></div>
+      <div>+ General Admin OH</div>
+      <div>+ Selling &amp; Distribution OH</div>
+      <div class="tot">COS</div>
+      <div>+ Profit</div>
+      <div class="tot">Sales <span class="box">Debtor days</span></div>
+    </div>
+    <p>Creditor calc: &nbsp; Opening RM &nbsp;<b>+</b>&nbsp; Purchases <span class="box" style="border-color:var(--red);color:var(--red);font-weight:600">Creditor days</span> &nbsp;<b>−</b>&nbsp; Closing RM &nbsp;<b>=</b>&nbsp; RM consumed</p>
+  </div>
+
+  <div class="block">
+    <h3>Cost sheet — New company vs Old company (WC amount)</h3>
+    <div class="tree"><div class="branches">
+      <div class="branch"><h4>New company (no opening RM, WIP, FG)</h4>
+        <div class="cost-sheet" style="font-size:11.5px">
+          <div>DM consumed</div><div>+ Direct labour</div><div>+ Direct expense</div>
+          <div class="tot">Prime cost</div><div>+ Factory OH</div><div>− Closing WIP</div>
+          <div class="tot">Factory cost</div><div>+ Admin (RTP)</div>
+          <div class="tot">COP</div><div>− Closing FG</div>
+          <div class="tot">COGS</div><div>+ General Admin OH</div><div>+ Selling &amp; Dist. OH</div>
+          <div class="tot">COS</div><div>+ Profit</div><div class="tot">Sales</div>
+        </div>
+      </div>
+      <div class="branch"><h4>Old company (assume Opening = Closing)</h4>
+        <div class="cost-sheet" style="font-size:11.5px">
+          <div>DM consumed</div><div>+ Direct labour</div><div>+ Direct expense</div>
+          <div class="tot">Prime cost</div><div>+ Factory OH</div>
+          <div class="tot">Factory cost</div><div>+ Admin (RTP)</div>
+          <div class="tot">COP</div>
+          <div class="tot">COGS</div><div>+ General Admin OH</div><div>+ Selling &amp; Dist. OH</div>
+          <div class="tot">COS</div><div>+ Profit</div><div class="tot">Sales</div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="block">
+    <h3>Operating Days = Working Capital Days</h3>
+    <div class="eq"><span class="lbl">Operating Days</span> = Current asset days − Current liability days</div>
+    <p>Current asset days: RM days, WIP days, FG days, Debtor days, Prepaid expense days.<br>
+       Current liability days: Creditor days, O/s expense days.</p>
+    <p class="note">General "days" form = <span class="f"><span>360 / 365 days (or 12 months / 52 weeks)</span><span>relevant T/O ratio</span></span></p>
+    <table class="t">
+      <tr><th>Days</th><th>Formula</th></tr>
+      <tr><td>FG days</td><td><span class="f"><span>360 / 365</span><span>Inventory T/O</span></span> = <span class="f"><span>360 / 365</span><span>COGS</span></span> × FG</td></tr>
+      <tr><td>RM days</td><td><span class="f"><span>360 / 365</span><span>RM T/O</span></span> = <span class="f"><span>360 / 365</span><span>RM consumed</span></span> × RM</td></tr>
+      <tr><td>WIP days</td><td><span class="f"><span>360 / 365</span><span>WIP T/O</span></span> = <span class="f"><span>360 / 365</span><span>Cost of production</span></span> × WIP</td></tr>
+      <tr><td>Debtor days</td><td><span class="f"><span>360 / 365</span><span>Debtor T/O</span></span> = <span class="f"><span>360 / 365</span><span>Credit sale</span></span> × Debtor</td></tr>
+      <tr><td>Creditor days</td><td><span class="f"><span>360 / 365</span><span>Creditor T/O</span></span> = <span class="f"><span>360 / 365</span><span>Credit purchase</span></span> × Creditor</td></tr>
+      <tr><td>O/s expense days</td><td><span class="f"><span>360 / 365</span><span>Total expense</span></span> × O/s expense</td></tr>
+      <tr><td>Prepaid expense days</td><td><span class="f"><span>360 / 365</span><span>Total expense</span></span> × Prepaid expense</td></tr>
+    </table>
+  </div>
+
+  <div class="block">
+    <h3>Working Capital amount = CA amount − CL amount</h3>
+    <p>CA amount: RM amt, WIP amt, FG amt, Debtor amt, Prepaid expense amt.<br>
+       CL amount: Creditor amt, O/s expense amt.</p>
+    <table class="t">
+      <tr><th>Item</th><th>Formula</th></tr>
+      <tr><td>RM</td><td><span class="f"><span>RM days × RM consumed</span><span>360 / 365 (or 12m / 52 weeks)</span></span></td></tr>
+      <tr><td>WIP</td><td>WIP units × [ RM per unit × 100% + Direct labour per unit × 50% + Factory OH per unit × 50% ]</td></tr>
+      <tr><td>FG</td><td><span class="f"><span>FG days × COGS</span><span>360 / 365 (or 12m / 52 weeks)</span></span></td></tr>
+      <tr><td>Debtors</td><td><span class="f"><span>Debtor days × Credit sale</span><span>360 / 365 (or 12m / 52 weeks)</span></span></td></tr>
+      <tr><td>Creditor</td><td><span class="f"><span>Creditor days × Credit purchase</span><span>360 / 365 (or 12m / 52 weeks)</span></span></td></tr>
+      <tr><td>O/s expense amt</td><td><span class="f"><span>O/s days × Total expense</span><span>360 / 365 (or 12m / 52 weeks)</span></span></td></tr>
+      <tr><td>Prepaid expense amt</td><td><span class="f"><span>Prepaid days × Total expense</span><span>360 / 365 (or 12m / 52 weeks)</span></span></td></tr>
+    </table>
+    <p class="note"><b>Cash-cost approach:</b> FG amount = <span class="f"><span>FG days × COGS</span><span>360 / 365 (or 12m)</span></span> &nbsp; and &nbsp; Debtor amount = <span class="f"><span>Debtor days × Cost of Sales</span><span>360 / 365 (or 12m)</span></span> (debtors valued at cash cost of sales, not at sales value).</p>
+  </div>
+
+  <div class="block">
+    <h3>Points to remember</h3>
+    <ol>
+      <li>If a <b>new company</b> question is given → there is <b>no opening</b> RM, FG, WIP.</li>
+      <li>If an <b>old company</b> question is given → assume <b>no opening &amp; no closing change</b> (opening = closing) for RM, FG, WIP.</li>
+      <li>Two parallel approaches:
+        <ul>
+          <li><b>Operating days:</b> FG days = <span class="f"><span>360 / 365 (12m)</span><span>COGS</span></span>; Debtor days = <span class="f"><span>360 / 365 (12m)</span><span>Credit sale</span></span> × Debtor</li>
+          <li><b>WC amount (total approach):</b> FG amount = <span class="f"><span>FG days × COS</span><span>360 / 365 (12m)</span></span>; Debtor amount = <span class="f"><span>Debtor days × Credit sale</span><span>360 / 365 (12m)</span></span></li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="chap" id="c10">
+  <h2>Appendix · Capital Structure Theories</h2>
+  <div class="src">Source: pages 25–26 (notes end mid-topic)</div>
+  <div class="block">
+    <h3>Approaches</h3>
+    <ul>
+      <li>Assumptions</li>
+      <li>Net Income (NI) Approach</li>
+      <li>Net Operating Income (NOI) Approach — with tax / without tax</li>
+      <li>Arbitrage</li>
+      <li>MM Approach — with tax / without tax</li>
+    </ul>
+  </div>
+  <div class="block">
+    <h3>Assumptions</h3>
+    <ol>
+      <li><b>Capital</b> = Equity + Debt only (no Preference, no R/S).</li>
+      <li><b>Total assets are fixed</b>: Equity + Debt = same total (e.g. 50 + 50 = 100). Want more equity → sell debt (70 + 30 = 100). Want more debt → sell equity (20 + 80 = 100).</li>
+      <li><b>Life = ∞ (Irredeemable)</b> — use irredeemable formulae.</li>
+      <li><b>Entire EATESH is distributed as dividend</b> → EATESH = equity dividend, so R/S = 0.</li>
+    </ol>
+  </div>
+  <div class="block">
+    <h3>Levered vs Unlevered firm</h3>
+    <div class="tree"><div class="branches">
+      <div class="branch"><h4>Levered Firm</h4>
+        <ul>
+          <li>Has both equity &amp; debt.</li>
+          <li>Value of Equity (Lev) = <span class="f"><span>EATESH</span><span>Ke (Lev)</span></span></li>
+          <li>Value of Debt is always given.</li>
+          <li>Value of Firm = Value of Debt (Lev) + Value of Equity (Lev)</li>
+          <li>Ko = WACC of Ke &amp; Kd</li>
+        </ul>
+      </div>
+      <div class="branch"><h4>Unlevered Firm</h4>
+        <ul>
+          <li>Has only equity, no debt.</li>
+          <li>Value of Equity = <span class="f"><span>EATESH</span><span>Ke</span></span></li>
+          <li>Value of Equity = Value of Firm</li>
+          <li>Ke = Ko</li>
+        </ul>
+      </div>
+    </div></div>
+  </div>
+  <div class="block">
+    <h3>Net Income (NI) Approach</h3>
+    <p>Under NI, <b>Ke and Kd stay constant</b> (given values) regardless of the debt–equity mix — ignore any change in them. As cheaper debt increases, Ko falls and the value of the firm rises; optimum structure = maximum debt.</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+const links = [...document.querySelectorAll('nav.side a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if(e.isIntersecting){
+      const id = '#' + e.target.id;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+secs.forEach(s => s && obs.observe(s));
+</script>
+</body>
+</html>
