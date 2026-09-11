@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debtors Mgmt &amp; Capital Structure — Process Guide</title>
+<script>document.documentElement.setAttribute('data-theme','light');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,650&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f1e8; --bg-elev:#faf8f1; --card:#ffffff;
+    --ink:#20242b; --ink-soft:#5b6270; --ink-faint:#8b93a2;
+    --line:#e0dccb; --line-strong:#c9c3ad;
+    --red:#c0392b; --blue:#2352a8; --green:#1e7a4d; --purple:#6b3fa0;
+    --accent:#0f9d8f;
+    --shadow: 0 12px 30px -18px rgba(30,36,44,.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15171c; --bg-elev:#1b1e24; --card:#20242c;
+      --ink:#e9ecf2; --ink-soft:#a7afbd; --ink-faint:#6f7889;
+      --line:#2c313b; --line-strong:#3b414d;
+      --red:#f2857a; --blue:#8fb3f0; --green:#79cfa0; --purple:#c6a5e8;
+      --accent:#3fd0c0;
+      --shadow: 0 12px 30px -16px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15171c; --bg-elev:#1b1e24; --card:#20242c;
+    --ink:#e9ecf2; --ink-soft:#a7afbd; --ink-faint:#6f7889;
+    --line:#2c313b; --line-strong:#3b414d;
+    --red:#f2857a; --blue:#8fb3f0; --green:#79cfa0; --purple:#c6a5e8;
+    --accent:#3fd0c0;
+    --shadow: 0 12px 30px -16px rgba(0,0,0,.6);
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{ background:var(--bg); color:var(--ink); font-family:"Source Serif 4",Georgia,serif; -webkit-font-smoothing:antialiased; line-height:1.62; }
+  h1,h2,h3,h4{ font-family:"Fraunces",Georgia,serif; }
+  .mono{ font-family:"IBM Plex Mono",ui-monospace,monospace; }
+
+  #app{ display:grid; grid-template-columns:270px 1fr; min-height:100vh; }
+  nav.side{ border-right:1px solid var(--line); background:var(--bg-elev); padding:20px 12px 60px; position:sticky; top:0; height:100vh; overflow-y:auto; }
+  nav .brand{ font-family:"Fraunces",Georgia,serif; font-weight:650; font-size:15.5px; padding:0 10px 6px; }
+  nav .brand small{ display:block; font-family:"IBM Plex Mono",monospace; font-size:10px; color:var(--ink-soft); font-weight:400; margin-top:3px; }
+  nav a{ display:block; padding:9px 10px; border-radius:8px; color:var(--ink); text-decoration:none; font-size:13px; margin-bottom:1px; }
+  nav a:hover{ background:var(--card); }
+  nav a.active{ background:var(--card); color:var(--red); font-weight:600; box-shadow:var(--shadow); }
+  nav .grp{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin:16px 10px 4px; }
+
+  main{ max-width:900px; margin:0 auto; padding:34px 38px 120px; }
+  .lead{ font-size:13px; color:var(--ink-soft); background:var(--bg-elev); border:1px solid var(--line); border-radius:10px; padding:12px 15px; margin-bottom:30px; }
+
+  section.chap{ margin-bottom:20px; display:none; }
+  section.chap.show{ display:block; }
+  section.chap > h2{ font-size:24px; font-weight:650; color:var(--red); margin:0 0 4px; border-bottom:2px solid var(--red); padding-bottom:6px; display:inline-block; }
+  section.chap > .src{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-faint); margin:8px 0 20px; }
+
+  .block{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:16px 0; box-shadow:var(--shadow); }
+  .block > h3{ font-size:16.5px; font-weight:600; color:var(--red); margin:2px 0 12px; }
+  .block > h4{ font-size:14px; font-weight:600; color:var(--purple); margin:16px 0 8px; }
+  .block p{ margin:8px 0; }
+  .block ul, .block ol{ margin:8px 0; padding-left:22px; }
+  .block li{ margin:6px 0; }
+  .note{ font-size:12.5px; color:var(--ink-soft); font-style:italic; border-left:3px solid var(--line-strong); padding-left:10px; margin:10px 0; }
+  .warn{ background:color-mix(in srgb, var(--red) 8%, transparent); border:1px solid color-mix(in srgb, var(--red) 30%, transparent); border-radius:9px; padding:10px 13px; font-size:13.5px; margin:12px 0; }
+  .warn b{ color:var(--red); }
+
+  .steps{ counter-reset:stepnum; list-style:none; margin:14px 0; padding:0; }
+  .steps li{ counter-increment:stepnum; position:relative; padding:10px 14px 10px 46px; margin-bottom:8px; background:var(--bg-elev); border:1px solid var(--line); border-radius:9px; }
+  .steps li::before{ content:counter(stepnum); position:absolute; left:12px; top:10px; width:22px; height:22px; border-radius:50%; background:var(--red); color:#fff; font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600; display:flex; align-items:center; justify-content:center; }
+  .steps li b{ color:var(--blue); }
+
+  .f{ display:inline-flex; flex-direction:column; text-align:center; vertical-align:middle; margin:0 .18em; font-family:"IBM Plex Mono",monospace; font-size:.92em; }
+  .f > span{ padding:1px .45em; }
+  .f > span:first-child{ border-bottom:1.6px solid currentColor; }
+  .eq{ font-family:"IBM Plex Mono",monospace; font-size:13.5px; background:var(--bg-elev); border:1px solid var(--line); border-radius:8px; padding:10px 13px; margin:10px 0; overflow-x:auto; color:var(--blue); }
+  .eq .lbl{ color:var(--ink); font-weight:600; }
+
+  table.t{ border-collapse:collapse; width:100%; margin:12px 0; font-size:13px; }
+  table.t th, table.t td{ border:1px solid var(--line-strong); padding:6px 9px; text-align:left; }
+  table.t th{ background:var(--bg-elev); font-weight:600; }
+  table.t td.num, table.t th.num{ text-align:right; font-family:"IBM Plex Mono",monospace; }
+
+  .worked{ border:1px solid var(--accent); border-radius:10px; padding:14px 16px; margin:14px 0; background:color-mix(in srgb, var(--accent) 6%, transparent); }
+  .worked .wtitle{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); margin-bottom:8px; }
+
+  .flow{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:14px 0; }
+  .flow .node{ background:var(--bg-elev); border:1px solid var(--line-strong); border-radius:9px; padding:9px 13px; font-size:12.5px; }
+  .flow .arrow{ color:var(--ink-faint); font-size:16px; }
+
+  @media (max-width:880px){
+    #app{ grid-template-columns:1fr; }
+    nav.side{ position:static; height:auto; border-right:none; border-bottom:1px solid var(--line); }
+    main{ padding:22px 18px 100px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+<nav class="side">
+  <div class="brand">Process Guide<small>Debtors Mgmt · Capital Structure (Arbitrage)</small></div>
+  <div class="grp">Debtors Management</div>
+  <a href="#d1">01 · Evaluation of Credit Policy — Method</a>
+  <a href="#d2">02 · Full Working Format</a>
+  <a href="#d3">03 · Worked Examples (your MTPs)</a>
+  <div class="grp">Capital Structure</div>
+  <a href="#c1">04 · How Arbitrage Works</a>
+  <a href="#c2">05 · Arbitrage — Step-by-Step</a>
+  <a href="#c3">06 · Worked Example (your MTP)</a>
+</nav>
+<main>
+<h1 style="font-size:26px;margin:0 0 6px;">Chapter Analysis: Debtors Management &amp; Capital Structure</h1>
+<div class="lead">A repeatable <b>method</b> for two exam-heavy areas — not just answers. Built from your own MTP1/MTP2/RTP questions (already verified on your FM &amp; SM page) plus standard ICAI treatment. Use this as the checklist you run through every time you see one of these questions.</div>
+
+<section class="chap show" id="d1">
+<h2>1 · Evaluation of Credit Policy — the Method</h2>
+<div class="src">Debtors (Receivables) Management — "should we relax/tighten the credit policy?"</div>
+<div class="block">
+<h3>The one question every variant is really asking</h3>
+<p>Every "evaluate the credit policy" question — relaxing credit period, allowing cash discount, comparing customers, factoring vs no factoring — reduces to one comparison:</p>
+<div class="eq"><span class="lbl">Net Benefit</span> = (Incremental Profit from the change) − (Incremental Cost of carrying the extra investment in debtors)</div>
+<p>If Net Benefit is <b>positive → adopt the change</b>. If comparing multiple options (A vs B vs C, or Present vs Proposed), <b>pick the option with the highest Net Benefit</b> — not the highest sales, not the highest profit alone.</p>
+</div>
+
+<div class="block">
+<h3>Step-by-step</h3>
+<ol class="steps">
+<li><b>Identify the options being compared.</b> Usually "Present Policy" vs "Proposed Policy", or Customer A vs B vs C at different credit periods (0/30/60/90 days). Set up one column per option.</li>
+<li><b>Compute Sales for each option.</b> If sales rise with a longer credit period, use the new (higher) sales figure for that option only.</li>
+<li><b>Compute Contribution</b> = Sales − Variable Cost. (Variable cost % stays the same across options unless stated otherwise.)</li>
+<li><b>Deduct additional Fixed Costs</b> — only if the question says fixed costs increase because of the new policy (e.g. new credit department). If fixed costs are unchanged, ignore this line entirely — a common trap is deducting the same fixed cost in every column when it hasn't actually changed.</li>
+<li><b>Deduct Bad Debts</b> = Sales × bad debt %. This % often changes between options (e.g. 1.5% → 2.5%) — always re-check which % applies to which column.</li>
+<li><b>Deduct Cash Discount</b> (only if the policy includes an early-payment discount, e.g. "2/15 net 60") = Sales × discount % × proportion of customers expected to avail it.</li>
+<li><b>Arrive at PBT, deduct tax → PAT.</b> This is "Profit (A)" for each option.</li>
+<li><b>Compute the Opportunity Cost of the investment in debtors — separately, as "(B)".</b> This is the step almost everyone gets wrong (see the box below).</li>
+<li><b>Net Benefit = PAT (A) − Opportunity Cost (B)</b> for each option.</li>
+<li><b>Compare</b> across options and recommend the one with the highest Net Benefit. If it's a single present-vs-proposed comparison, recommend adopting the proposed policy only if its Net Benefit &gt; the present policy's.</li>
+</ol>
+</div>
+
+<div class="warn">
+<b>The #1 trap — how to value the investment in debtors (Step 8).</b><br>
+Do <u>not</u> use the sales value of debtors. Investment in debtors is valued at <b>cost</b>, because that is the actual money the firm has tied up — the profit margin inside the receivable hasn't been "spent" yet.
+<div class="eq"><span class="lbl">Opportunity Cost</span> = Total <b>Cost</b> of Credit Sales × <span class="f"><span>Collection period (days)</span><span>360 (or 365)</span></span> × Required Rate of Return</div>
+<p style="margin:8px 0 0">"Total Cost of Credit Sales" = Credit Sales − Contribution (i.e. Variable Cost + apportioned Fixed Cost, or simply Sales × (1 − contribution %) depending on what the question gives). If the question separately gives "cost of sales" or "total cost", use that figure directly instead of re-deriving it.</p>
+</div>
+
+<div class="block">
+<h3>Other recurring variants of the same chapter</h3>
+<h4>(a) Factoring evaluation</h4>
+<p>Compare the <b>cost of factoring</b> against the <b>savings</b> it brings, then compare the net cost of factoring (as a %) against the cost of alternative finance (e.g. bank overdraft):</p>
+<div class="eq"><span class="lbl">Annual Cost of Factoring</span> = Factoring commission + Interest charged by factor on advance</div>
+<div class="eq"><span class="lbl">Savings on Factoring</span> = Credit administration cost saved + Bad debts avoided</div>
+<div class="eq"><span class="lbl">Net Cost</span> = Annual Cost − Savings &nbsp;&nbsp; <span class="lbl">Effective Cost %</span> = <span class="f"><span>Net Cost</span><span>Amount of advance actually made available</span></span> × 100</div>
+<p>If the effective cost % is <b>lower</b> than the bank's rate → avail factoring. If higher → don't.</p>
+<h4>(b) Multiple customers at multiple credit periods (matrix questions)</h4>
+<p>Build one table with a column per customer per credit period offered (0/30/60/90 days). For each cell compute: Sales → Contribution → Debtors (at <b>cost</b>, using average investment = Contribution period × Sales/360, or Debtors at cost = Cost × period/360) → Cost of carrying debtors → (Contribution − Cost of carrying). Pick, for <i>each customer separately</i>, the credit period where this net figure is highest.</p>
+</div>
+</section>
+
+<section class="chap" id="d2">
+<h2>2 · Full Working Format (copy this structure into every answer)</h2>
+<div class="src">This is the exact skeleton examiners expect — use it even in MCQ working notes</div>
+<div class="block">
+<table class="t">
+<tr><th>Particulars</th><th class="num">Present / Option A</th><th class="num">Proposed / Option B</th></tr>
+<tr><td>Sales (Credit)</td><td class="num">given / base</td><td class="num">base × (1 + % increase)</td></tr>
+<tr><td>(−) Variable Cost</td><td class="num">Sales × VC%</td><td class="num">Sales × VC%</td></tr>
+<tr><td><b>Contribution</b></td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td>(−) Additional Fixed Cost <i>(only if stated)</i></td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td>(−) Bad Debts (Sales × BD%)</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td>(−) Cash Discount <i>(if any)</i></td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><b>PBT</b></td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td>(−) Tax</td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td><b>PAT (A)</b></td><td class="num">—</td><td class="num">—</td></tr>
+<tr><td>(−) Opportunity Cost of Investment in Debtors (B)</td><td class="num">Cost of credit sales × period/360 × req. return</td><td class="num">Cost of credit sales × period/360 × req. return</td></tr>
+<tr><td><b>Net Benefit (A − B)</b></td><td class="num"><b>compare</b></td><td class="num"><b>compare</b></td></tr>
+</table>
+<p class="note">Always state the assumptions at the end: (i) cash discount not availed unless stated, (ii) debtors utilise the full credit period, (iii) 360 (or 365, as given) days in a year.</p>
+</div>
+</section>
+
+<section class="chap" id="d3">
+<h2>3 · Worked Examples — from your own MTPs</h2>
+<div class="src">Verified against the answer keys already on your FM &amp; SM page</div>
+<div class="block">
+<h3>Example 1 — Present vs Proposed policy (MTP2, Q1a)</h3>
+<p>Current credit sales ₹20,00,000; unutilised capacity. New policy 2/15 net 60 (vs present 1/15 net 45); sales expected +15%; bad debts rise 1.5% → 2.5%; contribution/sales 25%; tax 30%; required return 12%.</p>
+<table class="t">
+<tr><th>Particulars</th><th class="num">Present (₹)</th><th class="num">Proposed (₹)</th></tr>
+<tr><td>Credit Sales</td><td class="num">20,00,000</td><td class="num">23,00,000</td></tr>
+<tr><td>(−) Variable cost (75%)</td><td class="num">(15,00,000)</td><td class="num">(17,25,000)</td></tr>
+<tr><td>Contribution</td><td class="num">5,00,000</td><td class="num">5,75,000</td></tr>
+<tr><td>(−) Bad debts</td><td class="num">(30,000)</td><td class="num">(57,500)</td></tr>
+<tr><td>PBT</td><td class="num">4,70,000</td><td class="num">5,17,500</td></tr>
+<tr><td>(−) Tax @30%</td><td class="num">(1,41,000)</td><td class="num">(1,55,250)</td></tr>
+<tr><td>PAT (A)</td><td class="num">3,29,000</td><td class="num">3,62,250</td></tr>
+<tr><td>(−) Opportunity cost (B)</td><td class="num">(22,500)</td><td class="num">(34,500)</td></tr>
+<tr><td><b>Net Benefit</b></td><td class="num"><b>3,06,500</b></td><td class="num"><b>3,27,750</b></td></tr>
+</table>
+<div class="worked"><div class="wtitle">Step 8 detail — opportunity cost</div>
+Present: Variable cost 15,00,000 × 45/360 × 12% = ₹22,500.<br>
+Proposed: Variable cost 17,25,000 × 60/360 × 12% = ₹34,500.<br>
+<b>(Note: here "cost of credit sales" = variable cost only, since no fixed cost was mentioned as part of cost of sales.)</b></div>
+<p><b>Conclusion:</b> Proposed Net Benefit (3,27,750) &gt; Present (3,06,500) by ₹21,250 → <b>change the credit policy.</b></p>
+</div>
+
+<div class="block">
+<h3>Example 2 — Matrix of customers × credit periods (MTP1, Q2a)</h3>
+<p>Bright Vision Electronics: 3 customers A, B, C offered different sales quantities at 0/30/60/90-day credit. Selling price ₹9,000/TV; contribution 20% of selling price; cost of carrying receivables 20% p.a.; 360-day year.</p>
+<p><b>Method used:</b> for each customer, at each credit period, compute: Sales value → Contribution (20%) → Debtors at cost (i.e. 80% of sales value, since contribution is 20%) × period/360 → Cost of carrying those debtors (× 20%) → <b>Excess of contribution over cost of carrying debtors</b>. Customer A showed no sales increase with credit, so no benefit — leave at 0 days. For B and C, the excess was <b>highest at 90 days</b> for both.</p>
+<p><b>Conclusion:</b> allow <b>90-day credit to B and C</b>; A stays at 0 days. Also flag downstream problems: A may now demand parity credit since C already gets 60 days; B may demand even longer credit (e.g. 120 days) since it buys more than C at the same 90-day term.</p>
+</div>
+</section>
+
+<section class="chap" id="c1">
+<h2>4 · How Arbitrage Works (Capital Structure — MM Approach)</h2>
+<div class="src">Modigliani-Miller, without-tax world — the mechanism that forces Value(Levered) = Value(Unlevered)</div>
+<div class="block">
+<h3>The one-line idea</h3>
+<p>MM's <b>without-tax</b> proposition says the value of a firm is independent of its capital structure — a levered firm and an unlevered firm with the <b>same business risk and same EBIT</b> must have the <b>same total value</b>. <b>Arbitrage</b> is the market mechanism MM use to prove this: if the two firms are ever mispriced relative to each other, an investor can costlessly exploit the gap by switching their personal portfolio — buying into the underpriced firm and selling the overpriced one — until the prices converge and the arbitrage profit disappears.</p>
+<p>The key trick: since the <b>firm's</b> debt and the <b>investor's personal</b> borrowing are treated as perfect substitutes (this is called <b>"personal" or "homemade" leverage</b>), an investor can replicate or undo the company's leverage on their own account — so it should never matter to firm value whether the leverage sits inside the company or in the investor's own pocket.</p>
+</div>
+<div class="block">
+<h3>Why arbitrage exists — the setup</h3>
+<div class="flow">
+<div class="node">Two firms, <b>identical EBIT &amp; business risk</b></div><span class="arrow">→</span>
+<div class="node">One is <b>Levered</b> (debt + equity)</div>
+<div class="node">Other is <b>Unlevered</b> (all-equity)</div>
+</div>
+<div class="eq"><span class="lbl">Value of Levered firm</span>, V<sub>L</sub> = S<sub>L</sub> + D &nbsp;&nbsp; where S<sub>L</sub> = <span class="f"><span>EBIT − Interest</span><span>Ke (Levered)</span></span></div>
+<div class="eq"><span class="lbl">Value of Unlevered firm</span>, V<sub>U</sub> = S<sub>U</sub> &nbsp;&nbsp; where S<sub>U</sub> = <span class="f"><span>EBIT</span><span>Ke (Unlevered)</span></span></div>
+<p>If <b>V<sub>L</sub> ≠ V<sub>U</sub></b>, MM says this can't be a stable equilibrium — investors will arbitrage the difference away.</p>
+</div>
+</section>
+
+<section class="chap" id="c2">
+<h2>5 · Arbitrage — Step-by-Step Mechanics</h2>
+<div class="src">Two mirror-image cases: overvalued Levered firm, or overvalued Unlevered firm</div>
+<div class="block">
+<h3>Case A — Value of Levered firm &gt; Value of Unlevered firm</h3>
+<p>(The more commonly tested case.) An investor holding <b>x%</b> of the Levered firm's equity does the following:</p>
+<ol class="steps">
+<li><b>Sell</b> the shares held in the Levered company → realises x% × S<sub>L</sub> (Value of Levered firm's equity).</li>
+<li><b>Borrow personally</b> an amount = x% × D (the same proportion of the levered firm's debt) — at the <b>same interest rate</b> the company itself pays. This recreates, in the investor's own hands, the exact same personal financial risk they gave up by selling the levered shares.</li>
+<li><b>Invest the total</b> (sale proceeds + personal borrowing) into shares of the <b>Unlevered</b> company.</li>
+<li><b>Compute new income:</b> Income from Unlevered shares (at Ke<sub>U</sub>) <b>minus</b> Interest on the personal loan (at the borrowing rate).</li>
+<li><b>Compare with the old income</b> the investor was earning as a Levered shareholder (x% × Earnings to Levered equity).</li>
+<li>The <b>difference is a risk-free arbitrage gain</b> — same personal risk as before (because Step 2 recreated it), but higher income. Every investor holding Levered shares has an incentive to do this.</li>
+</ol>
+<p>As more investors do this: demand for Levered shares falls → its price (and V<sub>L</sub>) falls; demand for Unlevered shares rises → its price (and V<sub>U</sub>) rises. The process continues until <b>V<sub>L</sub> = V<sub>U</sub></b>, at which point the arbitrage gain becomes zero and there's no more incentive to switch — equilibrium is restored.</p>
+</div>
+<div class="block">
+<h3>Case B — Value of Unlevered firm &gt; Value of Levered firm (mirror image)</h3>
+<ol class="steps">
+<li><b>Sell</b> the shares held in the Unlevered company.</li>
+<li><b>Buy</b> shares of the Levered company in the <i>same proportion</i> the investor wants of both debt and equity claims — effectively <b>lend</b> part of the proceeds (buy a slice of the levered firm's debt, or simply invest a matching proportion in the levered firm's equity while treating part of the outlay as replicating the debt side) so the personal risk profile stays unchanged.</li>
+<li>Because the levered firm is cheaper per rupee of EBIT claimed, the same total investment now buys a <b>larger income stream</b>.</li>
+<li>Compare new income (from levered equity, at Ke<sub>L</sub>, on the smaller equity outlay) with the old income from unlevered shares — again a risk-free gain.</li>
+</ol>
+<p>This selling pressure on Unlevered shares and buying pressure on Levered shares pushes <b>V<sub>U</sub> down and V<sub>L</sub> up</b> until they meet.</p>
+</div>
+<div class="warn"><b>Exam checklist for an arbitrage question:</b>
+<ol style="margin:8px 0 0 18px;padding:0;">
+<li>Compute S<sub>L</sub>, V<sub>L</sub>, S<sub>U</sub>, V<sub>U</sub> first — always.</li>
+<li>Identify which firm is overvalued.</li>
+<li>Sell shares in the overvalued firm (× investor's holding %).</li>
+<li>Borrow/lend an amount that keeps the investor's <b>personal financial risk unchanged</b> — this is the step students most often skip. Without it, the "arbitrage" isn't riskless and the comparison is invalid.</li>
+<li>Buy shares in the undervalued firm with the total funds.</li>
+<li>Compute new income − interest (if borrowed) → compare to old income → state the incremental gain.</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section class="chap" id="c3">
+<h2>6 · Worked Example — from your own MTP</h2>
+<div class="src">MTP1 (FM), Q1(a) — verified against the answer key already on your FM &amp; SM page</div>
+<div class="block">
+<h3>Data</h3>
+<p>Two companies, same business risk. Capital employed ₹3,00,000; EBIT ₹45,000; Ke = 12.5%.</p>
+<table class="t">
+<tr><th></th><th class="num">A Ltd. (Levered)</th><th class="num">B Ltd. (Unlevered)</th></tr>
+<tr><td>Debt @10%</td><td class="num">1,50,000</td><td class="num">Nil</td></tr>
+<tr><td>Equity</td><td class="num">1,50,000</td><td class="num">3,00,000</td></tr>
+</table>
+<p>An investor holds <b>20%</b> of the shares in A Ltd. (the Levered company).</p>
+<h3>Step 1 — Value both firms</h3>
+<table class="t">
+<tr><th></th><th class="num">A Ltd. (Levered)</th><th class="num">B Ltd. (Unlevered)</th></tr>
+<tr><td>EBIT</td><td class="num">45,000</td><td class="num">45,000</td></tr>
+<tr><td>(−) Interest (10% × 1,50,000)</td><td class="num">15,000</td><td class="num">—</td></tr>
+<tr><td>Earnings for equity</td><td class="num">30,000</td><td class="num">45,000</td></tr>
+<tr><td>÷ Ke</td><td class="num">12.5%</td><td class="num">12.5%</td></tr>
+<tr><td>Value of Equity (S)</td><td class="num">2,40,000</td><td class="num">3,60,000</td></tr>
+<tr><td>+ Value of Debt (D)</td><td class="num">1,50,000</td><td class="num">Nil</td></tr>
+<tr><td><b>Value of Firm (V)</b></td><td class="num"><b>3,90,000</b></td><td class="num"><b>3,60,000</b></td></tr>
+</table>
+<p><b>V<sub>L</sub> (3,90,000) &gt; V<sub>U</sub> (3,60,000)</b> → this is <b>Case A</b> — the Levered firm is overvalued. The investor arbitrages by moving from Levered to Unlevered.</p>
+<h3>Step 2 — Execute the arbitrage (investor's 20% stake)</h3>
+<table class="t">
+<tr><td>Sell shares in Levered company (2,40,000 × 20%)</td><td class="num">48,000</td></tr>
+<tr><td>Borrow personally, same proportion of A Ltd.'s debt (1,50,000 × 20%) @10%</td><td class="num">30,000</td></tr>
+<tr><td><b>Total funds to invest in Unlevered company</b></td><td class="num"><b>78,000</b></td></tr>
+</table>
+<h3>Step 3 — Compare income</h3>
+<table class="t">
+<tr><td>Income from Unlevered shares (78,000 × 12.5%)</td><td class="num">9,750</td></tr>
+<tr><td>(−) Interest on personal loan (30,000 × 10%)</td><td class="num">(3,000)</td></tr>
+<tr><td><b>Net income from Unlevered position</b></td><td class="num"><b>6,750</b></td></tr>
+<tr><td>(−) Income previously earned from Levered shares (48,000 × 12.5%)</td><td class="num">(6,000)</td></tr>
+<tr><td><b>Incremental income due to arbitrage</b></td><td class="num"><b>750</b></td></tr>
+</table>
+<div class="worked"><div class="wtitle">Why the personal risk is unchanged</div>
+Before: the investor held levered equity — risk came from the company's own ₹1,50,000 debt (of which the investor's share is 20%, i.e. ₹30,000-worth of exposure). After: the investor sold that equity but personally borrowed the exact same ₹30,000 at the same 10% — so the investor is carrying the identical amount of leverage, just relocated from "inside the company" to "on their own account." That is exactly why the ₹750 gain is a <b>free lunch</b>, not a reward for taking more risk — and exactly why MM say this can't persist: everyone will do it until V<sub>L</sub> falls and V<sub>U</sub> rises enough to erase the ₹750.</div>
+</div>
+</section>
+
+</main>
+</div>
+<script>
+const links = [...document.querySelectorAll('nav.side a')];
+const meta = links.map(a => ({ id: a.getAttribute('href').slice(1), label: a.textContent.trim(), el: document.querySelector(a.getAttribute('href')) }));
+function show(id){
+  const idx = meta.findIndex(m => m.id === id);
+  const cur = idx < 0 ? 0 : idx;
+  meta.forEach((m,i) => m.el.classList.toggle('show', i === cur));
+  links.forEach((l,i) => l.classList.toggle('active', i === cur));
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange', () => show(location.hash.slice(1)));
+show(location.hash.slice(1) || 'd1');
+</script>
+</body>
+</html>
